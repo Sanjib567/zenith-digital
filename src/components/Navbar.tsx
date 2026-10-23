@@ -124,7 +124,7 @@ function MegaPanel({
   visible: boolean;
   onNavigate: () => void;
   onMouseEnter: () => void;
-  onMouseLeave: () => void;
+  onMouseLeave: (e?: ReactPointerEvent | ReactMouseEvent) => void;
 }) {
   const accent = accentOf(menu.label);
   return (
@@ -381,8 +381,8 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
-  const handleHeaderLeave = (e: ReactPointerEvent) => {
-    if (e.pointerType !== "mouse") return;
+  const handleHeaderLeave = (e?: ReactPointerEvent | ReactMouseEvent) => {
+    if (e && "pointerType" in e && e.pointerType !== "mouse") return;
     cancelClose();
     closeTimer.current = setTimeout(() => {
       closeTimer.current = null;
