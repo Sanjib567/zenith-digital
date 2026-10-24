@@ -29,7 +29,7 @@ const accentOf = (label: string): Accent => ACCENTS[label] ?? { from: "#2563eb",
 const gradient = (a: Accent) => `linear-gradient(135deg, ${a.from}, ${a.to})`;
 
 const FADE_MS = 200;
-const CLOSE_DELAY_MS = 80; // Snappier close response
+const CLOSE_DELAY_MS = 120;
 
 function IconBadge({
   Icon,
@@ -54,6 +54,7 @@ function IconBadge({
   );
 }
 
+// Flag for location items, icon badge for everything else
 function ItemVisual({
   label,
   Icon,
@@ -113,6 +114,7 @@ function ItemLink({
   );
 }
 
+// Desktop mega panel
 function MegaPanel({
   menu,
   visible,
@@ -124,20 +126,19 @@ function MegaPanel({
   visible: boolean;
   onNavigate: () => void;
   onMouseEnter: () => void;
-  onMouseLeave: (e?: ReactPointerEvent | ReactMouseEvent) => void;
+  onMouseLeave: () => void;
 }) {
   const accent = accentOf(menu.label);
   return (
     <div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`absolute inset-x-0 top-full z-50 flex justify-center px-4 pt-3 transition-all duration-200 ease-out sm:px-6 ${
+      className={`absolute inset-x-0 top-full z-50 hidden justify-center px-6 pt-3 transition-all duration-200 ease-out xl:flex ${
         visible ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"
       }`}
     >
       <div className="max-h-[75vh] w-full max-w-[1120px] overflow-y-auto rounded-b-3xl bg-white shadow-2xl ring-1 ring-black/5">
-        {/* Header */}
-        <div className="flex items-center gap-5 border-b border-slate-100 px-6 py-6 md:px-8">
+        <div className="flex items-center gap-5 border-b border-slate-100 px-8 py-6">
           <IconBadge Icon={menu.icon} size={30} box="h-16 w-16 rounded-2xl" accent={accent} solid />
           <div>
             <p className="font-[var(--font-heading)] text-2xl font-extrabold" style={{ color: accent.from }}>
@@ -148,8 +149,7 @@ function MegaPanel({
         </div>
 
         <div className="flex">
-          {/* Sections and links */}
-          <div className="grid flex-1 gap-x-10 gap-y-8 p-6 md:grid-cols-2 md:p-8">
+          <div className="grid flex-1 gap-x-10 gap-y-8 p-8 md:grid-cols-2">
             {(menu.sections ?? []).map((section) => (
               <div key={section.title}>
                 <p
@@ -167,13 +167,7 @@ function MegaPanel({
                         onNavigate={onNavigate}
                         className="group flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-800 transition hover:bg-slate-50"
                       >
-                        <ItemVisual
-                          label={item.label}
-                          Icon={item.icon}
-                          size={16}
-                          box="h-8 w-8"
-                          accent={accent}
-                        />
+                        <ItemVisual label={item.label} Icon={item.icon} size={16} box="h-8 w-8" accent={accent} />
                         <span className="transition group-hover:translate-x-1">{item.label}</span>
                       </ItemLink>
                     </li>
@@ -183,10 +177,9 @@ function MegaPanel({
             ))}
           </div>
 
-          {/* Side panel */}
           {menu.panel && (
             <aside
-              className="hidden w-80 flex-col justify-between p-6 xl:flex"
+              className="flex w-80 flex-col justify-between p-6"
               style={{ background: `linear-gradient(180deg, ${accent.from}14, #ffffff)` }}
             >
               <div>
@@ -229,6 +222,7 @@ function MegaPanel({
   );
 }
 
+// Phone and tablet menu: accordion sections with icons and flags
 function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
   const [openSection, setOpenSection] = useState<string | null>(null);
 
@@ -244,7 +238,7 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
                 <Link
                   href={menu.href}
                   onClick={onNavigate}
-                  className="flex items-center gap-3 px-6 py-4 text-base font-semibold text-slate-900"
+                  className="flex min-h-[56px] items-center gap-3 px-5 py-4 text-base font-semibold text-slate-900 active:bg-slate-50"
                 >
                   <IconBadge Icon={menu.icon} size={18} box="h-9 w-9" accent={accent} />
                   {menu.label}
@@ -260,17 +254,17 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
                 type="button"
                 onClick={() => setOpenSection(isOpen ? null : menu.label)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center justify-between px-6 py-4 text-base font-semibold text-slate-900"
+                className="flex min-h-[56px] w-full items-center justify-between px-5 py-4 text-base font-semibold text-slate-900 active:bg-slate-50"
               >
                 <span className="flex items-center gap-3">
                   <IconBadge Icon={menu.icon} size={18} box="h-9 w-9" accent={accent} />
                   {menu.label}
                 </span>
-                <ChevronDown size={18} className={`transition ${isOpen ? "rotate-180" : ""}`} />
+                <ChevronDown size={18} className={`transition duration-300 ${isOpen ? "rotate-180" : ""}`} />
               </button>
 
               {isOpen && (
-                <div className="space-y-5 bg-slate-50 px-6 pb-5">
+                <div className="animate-fade-up space-y-5 bg-slate-50 px-5 pb-5">
                   {menu.sections.map((section) => (
                     <div key={section.title}>
                       <p
@@ -286,15 +280,9 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
                             <ItemLink
                               href={itemHref(menu, item)}
                               onNavigate={onNavigate}
-                              className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-800"
+                              className="flex min-h-[44px] items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-800 active:bg-white"
                             >
-                              <ItemVisual
-                                label={item.label}
-                                Icon={item.icon}
-                                size={14}
-                                box="h-7 w-7"
-                                accent={accent}
-                              />
+                              <ItemVisual label={item.label} Icon={item.icon} size={14} box="h-7 w-7" accent={accent} />
                               {item.label}
                             </ItemLink>
                           </li>
@@ -309,11 +297,11 @@ function MobileMenu({ onNavigate }: { onNavigate: () => void }) {
         })}
       </ul>
 
-      <div className="p-6">
+      <div className="p-5">
         <Link
           href="/contact"
           onClick={onNavigate}
-          className="block rounded-full bg-brand-gradient px-6 py-3 text-center text-sm font-semibold text-white shadow-md"
+          className="block rounded-full bg-brand-gradient px-6 py-3.5 text-center text-sm font-bold text-white shadow-md"
         >
           Get A Free Consultation
         </Link>
@@ -339,6 +327,15 @@ export default function Navbar() {
     }
   };
 
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => {
+      closeTimer.current = null;
+      setOpenMenu(null);
+    }, CLOSE_DELAY_MS);
+  };
+
+  // Fade the desktop panel in and out
   useEffect(() => {
     if (openMenu) {
       setShownMenu(openMenu);
@@ -350,6 +347,7 @@ export default function Navbar() {
     return () => clearTimeout(remove);
   }, [openMenu]);
 
+  // Tap or click outside the header closes everything. Escape also closes.
   useEffect(() => {
     const onPointerDown = (e: PointerEvent) => {
       lastPointerType.current = e.pointerType;
@@ -381,25 +379,14 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
-  const handleHeaderLeave = (e?: ReactPointerEvent | ReactMouseEvent) => {
-    if (e && "pointerType" in e && e.pointerType !== "mouse") return;
-    cancelClose();
-    closeTimer.current = setTimeout(() => {
-      closeTimer.current = null;
-      setOpenMenu(null);
-    }, CLOSE_DELAY_MS);
-  };
-
-  const handleHeaderEnter = (e: ReactPointerEvent) => {
-    if (e.pointerType === "mouse") cancelClose();
-  };
-
+  // Mouse hover opens the desktop panel
   const onMenuEnter = (label: string) => (e: ReactPointerEvent) => {
     if (e.pointerType !== "mouse") return;
     cancelClose();
     setOpenMenu(label);
   };
 
+  // Click opens it on desktop. Tapping the same menu again closes it on touch.
   const onMenuClick = (label: string) => (e: ReactMouseEvent) => {
     e.preventDefault();
     cancelClose();
@@ -413,108 +400,107 @@ export default function Navbar() {
     setMobileOpen((open) => !open);
   };
 
+  // Leaving the header with the mouse closes the desktop panel after a short pause
+  const onHeaderLeave = (e: ReactPointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    scheduleClose();
+  };
+
+  const onHeaderEnter = (e: ReactPointerEvent) => {
+    if (e.pointerType === "mouse") cancelClose();
+  };
+
   const shown = navMenus.find((m) => m.label === shownMenu);
 
   return (
-    <>
-      {/* Invisible full-screen backdrop: triggers immediate closure when cursor moves down/away into the page content */}
-      {openMenu && (
-        <div
-          aria-hidden="true"
-          onMouseEnter={closeAll}
-          className="fixed inset-0 z-40 bg-transparent"
-        />
-      )}
+    <header
+      ref={headerRef}
+      onPointerEnter={onHeaderEnter}
+      onPointerLeave={onHeaderLeave}
+      className="sticky top-0 z-50 bg-white shadow-sm"
+    >
+      <nav className="relative mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:py-3">
+        {/* Logo: smaller on phones, larger on desktop */}
+        <Link href="/" onClick={closeAll} className="flex shrink-0 items-center">
+          <img
+            src="/images/zenith-logo.jpeg"
+            alt="Zenith Digital Agency logo"
+            className="h-14 w-auto object-contain sm:h-16 xl:h-24 2xl:h-28"
+          />
+        </Link>
 
-      <header
-        ref={headerRef}
-        onPointerEnter={handleHeaderEnter}
-        onPointerLeave={handleHeaderLeave}
-        className="sticky top-0 z-50 bg-white shadow-sm"
-      >
-        <nav className="relative mx-auto flex max-w-[1400px] items-center justify-between gap-6 px-6 py-3">
-          {/* Logo */}
-          <Link href="/" onClick={closeAll} className="flex shrink-0 items-center">
-            <img
-              src="/images/zenith-logo.jpeg"
-              alt="Zenith Digital Agency logo"
-              className="h-16 w-auto object-contain xl:h-24 2xl:h-28"
-            />
-          </Link>
+        {/* Desktop menu */}
+        <ul className="hidden items-center gap-0.5 xl:flex 2xl:gap-1">
+          {navMenus.map((menu) => {
+            const accent = accentOf(menu.label);
+            const hasMega = !!menu.sections;
+            const isOpen = openMenu === menu.label;
+            const className = `flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold transition 2xl:gap-2 2xl:px-3 2xl:text-sm ${
+              isOpen ? "" : "text-slate-800 hover:bg-slate-100"
+            }`;
+            const activeStyle: CSSProperties | undefined = isOpen
+              ? { backgroundColor: `${accent.from}1a`, color: accent.from }
+              : undefined;
 
-          {/* Desktop menu */}
-          <ul className="hidden items-center gap-0.5 xl:flex 2xl:gap-1">
-            {navMenus.map((menu) => {
-              const accent = accentOf(menu.label);
-              const hasMega = !!menu.sections;
-              const isOpen = openMenu === menu.label;
-              const className = `flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold transition 2xl:gap-2 2xl:px-3 2xl:text-sm ${
-                isOpen ? "" : "text-slate-800 hover:bg-slate-100"
-              }`;
-              const activeStyle: CSSProperties | undefined = isOpen
-                ? { backgroundColor: `${accent.from}1a`, color: accent.from }
-                : undefined;
+            return (
+              <li key={menu.label} onPointerEnter={hasMega ? onMenuEnter(menu.label) : undefined}>
+                {hasMega ? (
+                  <button
+                    type="button"
+                    onClick={onMenuClick(menu.label)}
+                    aria-expanded={isOpen}
+                    className={className}
+                    style={activeStyle}
+                  >
+                    <IconBadge Icon={menu.icon} size={13} box="h-6 w-6" accent={accent} />
+                    <span>{menu.label}</span>
+                    <ChevronDown size={13} className={`shrink-0 transition ${isOpen ? "rotate-180" : ""}`} />
+                  </button>
+                ) : (
+                  <Link href={menu.href} onClick={closeAll} className={className}>
+                    <IconBadge Icon={menu.icon} size={13} box="h-6 w-6" accent={accent} />
+                    <span>{menu.label}</span>
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
 
-              return (
-                <li key={menu.label} onPointerEnter={hasMega ? onMenuEnter(menu.label) : undefined}>
-                  {hasMega ? (
-                    <button
-                      type="button"
-                      onClick={onMenuClick(menu.label)}
-                      aria-expanded={isOpen}
-                      className={className}
-                      style={activeStyle}
-                    >
-                      <IconBadge Icon={menu.icon} size={13} box="h-6 w-6" accent={accent} />
-                      <span>{menu.label}</span>
-                      <ChevronDown size={13} className={`shrink-0 transition ${isOpen ? "rotate-180" : ""}`} />
-                    </button>
-                  ) : (
-                    <Link href={menu.href} onClick={closeAll} className={className}>
-                      <IconBadge Icon={menu.icon} size={13} box="h-6 w-6" accent={accent} />
-                      <span>{menu.label}</span>
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Right side: button and mobile toggle */}
-          <div className="flex shrink-0 items-center gap-3">
-            <div className="hidden sm:block">
-              <Link
-                href="/contact"
-                onClick={closeAll}
-                className="inline-block whitespace-nowrap rounded-full bg-brand-gradient px-4 py-2.5 text-xs font-semibold text-white shadow-md transition hover:scale-105 2xl:px-6 2xl:text-sm"
-              >
-                Get A Free Consultation
-              </Link>
-            </div>
-
-            <button
-              type="button"
-              onClick={toggleMobile}
-              aria-label={mobileOpen ? "Close menu" : "Open menu"}
-              aria-expanded={mobileOpen}
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-800 xl:hidden"
+        {/* Right side: consultation button (tablet and up) and menu toggle (phone and tablet) */}
+        <div className="flex shrink-0 items-center gap-3">
+          <div className="hidden md:block">
+            <Link
+              href="/contact"
+              onClick={closeAll}
+              className="inline-block whitespace-nowrap rounded-full bg-brand-gradient px-4 py-2.5 text-xs font-semibold text-white shadow-md transition hover:scale-105 2xl:px-6 2xl:text-sm"
             >
-              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+              Get A Free Consultation
+            </Link>
           </div>
 
-          {shown && (
-            <MegaPanel
-              menu={shown}
-              visible={visible}
-              onNavigate={closeAll}
-              onMouseEnter={cancelClose}
-              onMouseLeave={handleHeaderLeave}
-            />
-          )}
-          {mobileOpen && <MobileMenu onNavigate={closeAll} />}
-        </nav>
-      </header>
-    </>
+          <button
+            type="button"
+            onClick={toggleMobile}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            className="flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 text-slate-800 transition active:scale-95 xl:hidden"
+          >
+            {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
+
+        {shown && (
+          <MegaPanel
+            menu={shown}
+            visible={visible}
+            onNavigate={closeAll}
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+          />
+        )}
+        {mobileOpen && <MobileMenu onNavigate={closeAll} />}
+      </nav>
+    </header>
   );
 }

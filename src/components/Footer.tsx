@@ -104,11 +104,11 @@ export default function Footer() {
       <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-blue-600/15 blur-3xl" />
       <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-rose-600/15 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-6 pt-14">
+      <div className="relative mx-auto max-w-7xl px-5 pt-12 sm:px-6 sm:pt-14">
         {/* Call-to-action strip */}
-        <div className="flex flex-col items-center justify-between gap-5 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur md:flex-row md:p-8">
-          <div className="text-center md:text-left">
-            <p className="font-[var(--font-heading)] text-xl font-extrabold md:text-2xl">
+        <div className="flex flex-col items-center justify-between gap-5 rounded-3xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur sm:p-6 md:flex-row md:p-8 md:text-left">
+          <div>
+            <p className="font-[var(--font-heading)] text-lg font-extrabold sm:text-xl md:text-2xl">
               Ready to grow your business online?
             </p>
             <p className="mt-1 text-sm text-white/70">
@@ -117,19 +117,19 @@ export default function Footer() {
           </div>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-105"
+            className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:scale-105 sm:px-6 sm:py-3"
           >
             Get A Free Consultation
             <ArrowRight size={16} className="transition group-hover:translate-x-1" />
           </Link>
         </div>
 
-        {/* Main columns */}
-        <div className="mt-14 grid gap-12 lg:grid-cols-12">
+        {/* Main columns: one column on phones, columns on larger screens */}
+        <div className="mt-12 grid gap-12 lg:mt-14 lg:grid-cols-12">
           {/* Brand column */}
           <div className="lg:col-span-4">
             <Link href="/" className="inline-block rounded-2xl bg-white p-3 shadow-xl">
-              <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-24 w-auto" />
+              <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-20 w-auto sm:h-24" />
             </Link>
             <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/70">
               {siteConfig.name} is an {siteConfig.tagline.toLowerCase()} based in {siteConfig.location}. We build fast
@@ -204,8 +204,9 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom row: socials, tagline, badges and back-to-top */}
-        <div className="mt-12 grid items-center gap-8 border-t border-white/10 py-10 lg:grid-cols-3">
+        {/* Bottom row: socials, tagline, badges and back-to-top.
+            On phones everything stacks in the centre, and the MSME badge and payments sit in one row. */}
+        <div className="mt-12 flex flex-col items-center gap-6 border-t border-white/10 py-8 lg:grid lg:grid-cols-3 lg:items-center lg:gap-8 lg:py-10">
           <div className="flex justify-center gap-3 lg:justify-start">
             {socials.map(({ label, href, Icon }) => (
               <a
@@ -222,24 +223,24 @@ export default function Footer() {
             ))}
           </div>
 
-          <p className="text-center font-[var(--font-heading)] text-xl font-extrabold tracking-wide md:text-2xl">
+          <p className="text-center font-[var(--font-heading)] text-lg font-extrabold tracking-wide sm:text-xl md:text-2xl">
             <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">AI Driven</span>
-            <span className="mx-3 text-white/30">-</span>
+            <span className="mx-2 text-white/30 sm:mx-3">-</span>
             <span className="text-white">Design</span>
-            <span className="mx-3 text-white/30">-</span>
+            <span className="mx-2 text-white/30 sm:mx-3">-</span>
             <span className="bg-gradient-to-r from-rose-500 to-orange-400 bg-clip-text text-transparent">Deliver</span>
           </p>
 
           <div className="flex flex-col items-center gap-4">
             {SHOW_MSME_BADGE && (
               <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
-                <img src="/images/msme.webp" alt="MSME registered" className="h-20 w-auto object-contain" />
+                <img src="/images/msme.webp" alt="MSME registered" className="h-16 w-auto object-contain sm:h-20" />
               </div>
             )}
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               {SHOW_PAYMENTS && (
                 <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
-                  <img src="/images/adds.webp" alt="Accepted payment methods" className="h-11 w-auto object-contain" />
+                  <img src="/images/adds.webp" alt="Accepted payment methods" className="h-9 w-auto object-contain sm:h-11" />
                 </div>
               )}
               <BackToTop />
@@ -250,11 +251,11 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10 bg-black/40">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs text-white/60 md:flex-row">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-5 py-4 text-center text-xs text-white/60 sm:px-6 md:flex-row md:text-left">
           <p>
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
             <span>{siteConfig.location}</span>
             <span className="text-white/20">·</span>
             <span>AI SEO · Web Development · Digital Marketing</span>
