@@ -259,3 +259,23 @@ body {
     animation: none;
   }
 }
+/* Back-to-top button bobs up and down, like the WhatsApp button */
+@keyframes bounce-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-bounce-soft {
+  animation: bounce-soft 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-bounce-soft {
+    animation: none;
+  }
+}

@@ -1,6 +1,11 @@
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
+import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { siteConfig, services, navMenus } from "@/data/site";
+import { countryPages } from "@/data/locationPages";
+import BackToTop from "@/components/BackToTop";
+
+const SHOW_MSME_BADGE = true;
+const SHOW_PAYMENTS = true;
 
 function LinkedInIcon() {
   return (
@@ -53,20 +58,155 @@ const socials = [
   { label: "X", href: "https://x.com/zenithdigitalag", Icon: XIcon },
 ];
 
+const flag = (code: string, width: number) => `https://flagcdn.com/w${width}/${code.toLowerCase()}.png`;
+
+const aiLinks = navMenus.find((m) => m.label === "AI Solutions")?.sections?.[0]?.items ?? [];
+const companyLinks = navMenus.find((m) => m.label === "Company")?.sections?.[0]?.items ?? [];
+
+const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
+  "Hello Zenith Digital, I would like a free consultation."
+)}`;
+
+type LinkItem = { label: string; href: string };
+
+// Column heading with a gradient underline, then bold white links with a blue arrow
+function FooterColumn({ title, links }: { title: string; links: LinkItem[] }) {
+  return (
+    <div>
+      <h3 className="font-[var(--font-heading)] text-base font-extrabold uppercase tracking-wider text-white">
+        {title}
+      </h3>
+      <span className="mt-2 block h-0.5 w-10 rounded-full bg-brand-gradient" />
+      <ul className="mt-5 space-y-2.5">
+        {links.map((l) => (
+          <li key={l.label}>
+            <Link
+              href={l.href}
+              className="group flex items-start gap-2 text-sm font-bold text-white transition-all duration-300 hover:translate-x-1 hover:text-blue-300"
+            >
+              <ArrowRight
+                size={14}
+                className="mt-0.5 shrink-0 text-blue-400 transition duration-300 group-hover:translate-x-1 group-hover:text-white"
+              />
+              <span>{l.label}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-brand-navy text-white">
-      <div className="h-1 w-full bg-brand-gradient" />
+    <footer className="relative overflow-hidden bg-[#07060f] text-white">
+      {/* Soft colour glows */}
+      <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-blue-600/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-rose-600/15 blur-3xl" />
 
-      <div className="mx-auto grid max-w-7xl gap-12 px-6 py-16 md:grid-cols-2 lg:grid-cols-4">
-        <div>
-          <Link href="/" className="inline-block rounded-xl bg-white p-2 shadow-lg">
-            <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-20 w-auto" />
+      <div className="relative mx-auto max-w-7xl px-6 pt-14">
+        {/* Call-to-action strip */}
+        <div className="flex flex-col items-center justify-between gap-5 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur md:flex-row md:p-8">
+          <div className="text-center md:text-left">
+            <p className="font-[var(--font-heading)] text-xl font-extrabold md:text-2xl">
+              Ready to grow your business online?
+            </p>
+            <p className="mt-1 text-sm text-white/70">
+              Get a free consultation from our team within one business day.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-105"
+          >
+            Get A Free Consultation
+            <ArrowRight size={16} className="transition group-hover:translate-x-1" />
           </Link>
-          <p className="mt-6 text-sm leading-relaxed text-white/70">
-            {siteConfig.tagline}. We build fast websites, online stores and AI-driven SEO campaigns that bring real customers.
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
+        </div>
+
+        {/* Main columns */}
+        <div className="mt-14 grid gap-12 lg:grid-cols-12">
+          {/* Brand column */}
+          <div className="lg:col-span-4">
+            <Link href="/" className="inline-block rounded-2xl bg-white p-3 shadow-xl">
+              <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-24 w-auto" />
+            </Link>
+            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/70">
+              {siteConfig.name} is an {siteConfig.tagline.toLowerCase()} based in {siteConfig.location}. We build fast
+              websites, online stores and AI-driven search campaigns that bring real customers.
+            </p>
+
+            <p className="mt-8 text-xs font-extrabold uppercase tracking-widest text-white/50">Global presence</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {countryPages.map((c) => (
+                <Link
+                  key={c.slug}
+                  href={`/locations/${c.slug}`}
+                  className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10"
+                >
+                  <img src={flag(c.code, 40)} alt="" aria-hidden="true" className="h-3.5 w-5 rounded-sm object-cover" />
+                  {c.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Link columns */}
+          <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">
+            <FooterColumn title="AI Solutions" links={aiLinks.map((i) => ({ label: i.label, href: i.href }))} />
+
+            <FooterColumn
+              title="Services"
+              links={services.map((s) => ({ label: s.title, href: `/services/${s.slug}` }))}
+            />
+
+            <FooterColumn title="Company" links={companyLinks.map((i) => ({ label: i.label, href: i.href }))} />
+
+            {/* Contact column */}
+            <div>
+              <h3 className="font-[var(--font-heading)] text-base font-extrabold uppercase tracking-wider text-white">
+                Contact
+              </h3>
+              <span className="mt-2 block h-0.5 w-10 rounded-full bg-brand-gradient" />
+              <ul className="mt-5 space-y-3 text-sm font-bold text-white">
+                <li>
+                  <a
+                    href={`mailto:${siteConfig.email}`}
+                    className="group flex items-start gap-3 transition hover:translate-x-1 hover:text-blue-300"
+                  >
+                    <Mail size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                    <span className="break-all">{siteConfig.email}</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
+                    className="group flex items-start gap-3 transition hover:translate-x-1 hover:text-blue-300"
+                  >
+                    <Phone size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                    {siteConfig.phone}
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MapPin size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                  {siteConfig.location}
+                </li>
+              </ul>
+              <a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:scale-105"
+              >
+                <MessageCircle size={16} /> Chat on WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom row: socials, tagline, badges and back-to-top */}
+        <div className="mt-12 grid items-center gap-8 border-t border-white/10 py-10 lg:grid-cols-3">
+          <div className="flex justify-center gap-3 lg:justify-start">
             {socials.map(({ label, href, Icon }) => (
               <a
                 key={label}
@@ -75,80 +215,50 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 title={label}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white/80 transition hover:-translate-y-1 hover:border-transparent hover:bg-brand-gradient hover:text-white"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:-translate-y-1 hover:border-transparent hover:bg-brand-gradient"
               >
                 <Icon />
               </a>
             ))}
           </div>
-        </div>
 
-        <div>
-          <h3 className="font-[var(--font-heading)] text-lg font-bold">Services</h3>
-          <div className="mt-2 h-0.5 w-10 rounded-full bg-brand-gradient" />
-          <ul className="mt-6 space-y-3 text-sm">
-            {services.map((s) => (
-              <li key={s.slug}>
-                <Link href={`/services/${s.slug}`} className="group flex items-center gap-2 text-white/70 transition hover:text-white">
-                  <ArrowRight size={14} className="text-brand-blue transition group-hover:translate-x-1" />
-                  {s.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <p className="text-center font-[var(--font-heading)] text-xl font-extrabold tracking-wide md:text-2xl">
+            <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">AI Driven</span>
+            <span className="mx-3 text-white/30">-</span>
+            <span className="text-white">Design</span>
+            <span className="mx-3 text-white/30">-</span>
+            <span className="bg-gradient-to-r from-rose-500 to-orange-400 bg-clip-text text-transparent">Deliver</span>
+          </p>
 
-        <div>
-          <h3 className="font-[var(--font-heading)] text-lg font-bold">Company</h3>
-          <div className="mt-2 h-0.5 w-10 rounded-full bg-brand-gradient" />
-          <ul className="mt-6 space-y-3 text-sm">
-            {navMenus.map((m) => (
-              <li key={m.label}>
-                <Link href={m.href} className="group flex items-center gap-2 text-white/70 transition hover:text-white">
-                  <ArrowRight size={14} className="text-brand-blue transition group-hover:translate-x-1" />
-                  {m.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-[var(--font-heading)] text-lg font-bold">Contact</h3>
-          <div className="mt-2 h-0.5 w-10 rounded-full bg-brand-gradient" />
-          <ul className="mt-6 space-y-4 text-sm text-white/70">
-            <li>
-              <a href={`mailto:${siteConfig.email}`} className="flex items-start gap-3 hover:text-white">
-                <Mail size={18} className="mt-0.5 shrink-0 text-brand-blue" />
-                {siteConfig.email}
-              </a>
-            </li>
-            <li>
-              <a href={`tel:${siteConfig.phone.replace(/\s/g, "")}`} className="flex items-start gap-3 hover:text-white">
-                <Phone size={18} className="mt-0.5 shrink-0 text-brand-blue" />
-                {siteConfig.phone}
-              </a>
-            </li>
-            <li className="flex items-start gap-3">
-              <MapPin size={18} className="mt-0.5 shrink-0 text-brand-blue" />
-              {siteConfig.location}
-            </li>
-          </ul>
-          <a
-            href={`https://wa.me/${siteConfig.whatsapp}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:scale-105"
-          >
-            Chat on WhatsApp
-          </a>
+          <div className="flex flex-col items-center gap-4">
+            {SHOW_MSME_BADGE && (
+              <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
+                <img src="/images/msme.webp" alt="MSME registered" className="h-20 w-auto object-contain" />
+              </div>
+            )}
+            <div className="flex items-center gap-4">
+              {SHOW_PAYMENTS && (
+                <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
+                  <img src="/images/adds.webp" alt="Accepted payment methods" className="h-11 w-auto object-contain" />
+                </div>
+              )}
+              <BackToTop />
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-6 py-6 text-xs text-white/50 md:flex-row">
-          <p>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</p>
-          <p>Built for growth. Found by search. Trusted by clients.</p>
+      {/* Bottom bar */}
+      <div className="border-t border-white/10 bg-black/40">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 px-6 py-4 text-xs text-white/60 md:flex-row">
+          <p>
+            © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
+          </p>
+          <div className="flex items-center gap-3">
+            <span>{siteConfig.location}</span>
+            <span className="text-white/20">·</span>
+            <span>AI SEO · Web Development · Digital Marketing</span>
+          </div>
         </div>
       </div>
     </footer>
