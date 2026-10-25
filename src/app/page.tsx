@@ -12,6 +12,7 @@ import Reveal from "@/components/Reveal";
 import FaqAccordion from "@/components/FaqAccordion";
 import ServiceCard from "@/components/ServiceCard";
 import { services, whyUs, faqs } from "@/data/site";
+import Chatbot from "@/components/Chatbot";
 
 export default function Home() {
   return (
