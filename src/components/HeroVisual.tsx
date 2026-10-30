@@ -115,7 +115,7 @@ export default function HeroVisual() {
       {/* Location card */}
       <div className="absolute bottom-2 right-2 rounded-xl bg-white/90 px-3.5 py-2.5 shadow-lg backdrop-blur-md border border-brand-navy/10">
         <p className="text-[11px] font-medium text-slate-500">Based in</p>
-        <p className="font-[var(--font-heading)] text-sm font-extrabold text-brand-gradient">Odisha, India</p>
+        <p className="font-[var(--font-heading)] text-sm font-extrabold text-brand-gradient">India</p>
       </div>
     </div>
   );

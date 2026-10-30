@@ -1,11 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { siteConfig, services, navMenus } from "@/data/site";
-import { countryPages } from "@/data/locationPages";
 import BackToTop from "@/components/BackToTop";
-
-const SHOW_MSME_BADGE = true;
-const SHOW_PAYMENTS = true;
 
 function LinkedInIcon() {
   return (
@@ -58,8 +54,6 @@ const socials = [
   { label: "X", href: "https://x.com/zenithdigitalag", Icon: XIcon },
 ];
 
-const flag = (code: string, width: number) => `https://flagcdn.com/w${width}/${code.toLowerCase()}.png`;
-
 const aiLinks = navMenus.find((m) => m.label === "AI Solutions")?.sections?.[0]?.items ?? [];
 const companyLinks = navMenus.find((m) => m.label === "Company")?.sections?.[0]?.items ?? [];
 
@@ -69,24 +63,23 @@ const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURICompo
 
 type LinkItem = { label: string; href: string };
 
-// Column heading with a gradient underline, then bold white links with a blue arrow
 function FooterColumn({ title, links }: { title: string; links: LinkItem[] }) {
   return (
     <div>
-      <h3 className="font-[var(--font-heading)] text-base font-extrabold uppercase tracking-wider text-white">
+      <h3 className="font-[var(--font-heading)] text-sm font-extrabold uppercase tracking-wider text-white">
         {title}
       </h3>
-      <span className="mt-2 block h-0.5 w-10 rounded-full bg-brand-gradient" />
+      <span className="mt-2 block h-0.5 w-8 rounded-full bg-brand-gradient" />
       <ul className="mt-5 space-y-2.5">
         {links.map((l) => (
           <li key={l.label}>
             <Link
               href={l.href}
-              className="group flex items-start gap-2 text-sm font-bold text-white transition-all duration-300 hover:translate-x-1 hover:text-blue-300"
+              className="group flex items-start gap-2 text-sm font-bold text-white transition hover:text-blue-300"
             >
               <ArrowRight
                 size={14}
-                className="mt-0.5 shrink-0 text-blue-400 transition duration-300 group-hover:translate-x-1 group-hover:text-white"
+                className="mt-0.5 shrink-0 text-blue-400 transition group-hover:translate-x-1"
               />
               <span>{l.label}</span>
             </Link>
@@ -100,15 +93,11 @@ function FooterColumn({ title, links }: { title: string; links: LinkItem[] }) {
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden bg-[#07060f] text-white">
-      {/* Soft colour glows */}
-      <div className="pointer-events-none absolute -left-32 top-0 h-80 w-80 rounded-full bg-blue-600/15 blur-3xl" />
-      <div className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-rose-600/15 blur-3xl" />
-
       <div className="relative mx-auto max-w-7xl px-5 pt-12 sm:px-6 sm:pt-14">
         {/* Call-to-action strip */}
-        <div className="flex flex-col items-center justify-between gap-5 rounded-3xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur sm:p-6 md:flex-row md:p-8 md:text-left">
+        <div className="flex flex-col items-center justify-between gap-5 rounded-2xl border border-white/10 bg-white/5 p-6 text-center md:flex-row md:text-left">
           <div>
-            <p className="font-[var(--font-heading)] text-lg font-extrabold sm:text-xl md:text-2xl">
+            <p className="font-[var(--font-heading)] text-lg font-extrabold sm:text-xl">
               Ready to grow your business online?
             </p>
             <p className="mt-1 text-sm text-white/70">
@@ -117,97 +106,73 @@ export default function Footer() {
           </div>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:scale-105 sm:px-6 sm:py-3"
+            className="group inline-flex items-center gap-2 rounded-full bg-brand-gradient px-6 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-105"
           >
             Get A Free Consultation
             <ArrowRight size={16} className="transition group-hover:translate-x-1" />
           </Link>
         </div>
 
-        {/* Main columns: one column on phones, columns on larger screens */}
-        <div className="mt-12 grid gap-12 lg:mt-14 lg:grid-cols-12">
-          {/* Brand column */}
-          <div className="lg:col-span-4">
-            <Link href="/" className="inline-block rounded-2xl bg-white p-3 shadow-xl">
-              <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-20 w-auto sm:h-24" />
+        {/* Main columns */}
+        <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {/* Brand */}
+          <div>
+            <Link href="/" className="inline-block rounded-xl bg-white p-2.5 shadow-lg">
+              <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-16 w-auto" />
             </Link>
-            <p className="mt-6 max-w-sm text-sm leading-relaxed text-white/70">
-              {siteConfig.name} is an {siteConfig.tagline.toLowerCase()} based in {siteConfig.location}. We build fast
-              websites, online stores and AI-driven search campaigns that bring real customers.
+            <p className="mt-5 text-sm leading-relaxed text-white/70">
+              {siteConfig.name} is an {siteConfig.tagline.toLowerCase()} based in {siteConfig.location}.
             </p>
-
-            <p className="mt-8 text-xs font-extrabold uppercase tracking-widest text-white/50">Global presence</p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {countryPages.map((c) => (
-                <Link
-                  key={c.slug}
-                  href={`/locations/${c.slug}`}
-                  className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:border-white/30 hover:bg-white/10"
-                >
-                  <img src={flag(c.code, 40)} alt="" aria-hidden="true" className="h-3.5 w-5 rounded-sm object-cover" />
-                  {c.name}
-                </Link>
-              ))}
-            </div>
           </div>
 
-          {/* Link columns */}
-          <div className="grid gap-10 sm:grid-cols-2 lg:col-span-8 lg:grid-cols-4">
-            <FooterColumn title="AI Solutions" links={aiLinks.map((i) => ({ label: i.label, href: i.href }))} />
+          <FooterColumn title="AI Solutions" links={aiLinks.map((i) => ({ label: i.label, href: i.href }))} />
 
-            <FooterColumn
-              title="Services"
-              links={services.map((s) => ({ label: s.title, href: `/services/${s.slug}` }))}
-            />
+          <FooterColumn
+            title="Services"
+            links={services.map((s) => ({ label: s.title, href: `/services/${s.slug}` }))}
+          />
 
-            <FooterColumn title="Company" links={companyLinks.map((i) => ({ label: i.label, href: i.href }))} />
-
-            {/* Contact column */}
-            <div>
-              <h3 className="font-[var(--font-heading)] text-base font-extrabold uppercase tracking-wider text-white">
-                Contact
-              </h3>
-              <span className="mt-2 block h-0.5 w-10 rounded-full bg-brand-gradient" />
-              <ul className="mt-5 space-y-3 text-sm font-bold text-white">
-                <li>
-                  <a
-                    href={`mailto:${siteConfig.email}`}
-                    className="group flex items-start gap-3 transition hover:translate-x-1 hover:text-blue-300"
-                  >
-                    <Mail size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                    <span className="break-all">{siteConfig.email}</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
-                    className="group flex items-start gap-3 transition hover:translate-x-1 hover:text-blue-300"
-                  >
-                    <Phone size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                    {siteConfig.phone}
-                  </a>
-                </li>
-                <li className="flex items-start gap-3">
-                  <MapPin size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                  {siteConfig.location}
-                </li>
-              </ul>
-              <a
-                href={whatsappLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:-translate-y-0.5 hover:scale-105"
-              >
-                <MessageCircle size={16} /> Chat on WhatsApp
-              </a>
-            </div>
+          {/* Contact */}
+          <div>
+            <h3 className="font-[var(--font-heading)] text-sm font-extrabold uppercase tracking-wider text-white">
+              Contact
+            </h3>
+            <span className="mt-2 block h-0.5 w-8 rounded-full bg-brand-gradient" />
+            <ul className="mt-5 space-y-3 text-sm font-bold text-white">
+              <li>
+                <a href={`mailto:${siteConfig.email}`} className="flex items-start gap-3 transition hover:text-blue-300">
+                  <Mail size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                  <span className="break-all">{siteConfig.email}</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={`tel:${siteConfig.phone.replace(/\s/g, "")}`}
+                  className="flex items-start gap-3 transition hover:text-blue-300"
+                >
+                  <Phone size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                  {siteConfig.phone}
+                </a>
+              </li>
+              <li className="flex items-start gap-3">
+                <MapPin size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                {siteConfig.location}
+              </li>
+            </ul>
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:scale-105"
+            >
+              <MessageCircle size={16} /> Chat on WhatsApp
+            </a>
           </div>
         </div>
 
-        {/* Bottom row: socials, tagline, badges and back-to-top.
-            On phones everything stacks in the centre, and the MSME badge and payments sit in one row. */}
-        <div className="mt-12 flex flex-col items-center gap-6 border-t border-white/10 py-8 lg:grid lg:grid-cols-3 lg:items-center lg:gap-8 lg:py-10">
-          <div className="flex justify-center gap-3 lg:justify-start">
+        {/* Bottom row */}
+        <div className="mt-12 flex flex-col items-center gap-6 border-t border-white/10 py-8 md:flex-row md:justify-between">
+          <div className="flex gap-3">
             {socials.map(({ label, href, Icon }) => (
               <a
                 key={label}
@@ -216,35 +181,26 @@ export default function Footer() {
                 rel="noopener noreferrer"
                 aria-label={label}
                 title={label}
-                className="flex h-11 w-11 items-center justify-center rounded-full border border-white/15 text-white transition hover:-translate-y-1 hover:border-transparent hover:bg-brand-gradient"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition hover:-translate-y-0.5 hover:border-transparent hover:bg-brand-gradient"
               >
                 <Icon />
               </a>
             ))}
           </div>
 
-          <p className="text-center font-[var(--font-heading)] text-lg font-extrabold tracking-wide sm:text-xl md:text-2xl">
+          <p className="text-center font-[var(--font-heading)] text-lg font-extrabold tracking-wide md:text-xl">
             <span className="bg-gradient-to-r from-blue-500 to-violet-500 bg-clip-text text-transparent">AI Driven</span>
-            <span className="mx-2 text-white/30 sm:mx-3">-</span>
+            <span className="mx-2 text-white/30">-</span>
             <span className="text-white">Design</span>
-            <span className="mx-2 text-white/30 sm:mx-3">-</span>
+            <span className="mx-2 text-white/30">-</span>
             <span className="bg-gradient-to-r from-rose-500 to-orange-400 bg-clip-text text-transparent">Deliver</span>
           </p>
 
-          <div className="flex flex-col items-center gap-4">
-            {SHOW_MSME_BADGE && (
-              <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
-                <img src="/images/msme.webp" alt="MSME registered" className="h-16 w-auto object-contain sm:h-20" />
-              </div>
-            )}
-            <div className="flex items-center gap-3">
-              {SHOW_PAYMENTS && (
-                <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
-                  <img src="/images/adds.webp" alt="Accepted payment methods" className="h-9 w-auto object-contain sm:h-11" />
-                </div>
-              )}
-              <BackToTop />
+          <div className="flex items-center gap-3">
+            <div className="inline-flex items-center rounded-xl bg-white p-2 shadow-lg">
+              <img src="/images/adds.webp" alt="Accepted payment methods" className="h-9 w-auto object-contain" />
             </div>
+            <BackToTop />
           </div>
         </div>
       </div>
@@ -255,11 +211,7 @@ export default function Footer() {
           <p>
             © {new Date().getFullYear()} {siteConfig.name}. All rights reserved.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
-            <span>{siteConfig.location}</span>
-            <span className="text-white/20">·</span>
-            <span>AI SEO · Web Development · Digital Marketing</span>
-          </div>
+          <p>{siteConfig.location} · AI SEO · Web Development · Digital Marketing</p>
         </div>
       </div>
     </footer>

@@ -6,7 +6,7 @@ export default function MarqueeBar() {
     "⚡ Next.js & React Development",
     "📈 Advanced SEO & Digital Marketing",
     "🛍️ Shopify & WooCommerce Ecommerce",
-    "🌍 Serving Clients Worldwide from Odisha, India",
+    "🌍 Serving Clients Worldwide from India",
     "🤖 Custom AI Chatbots & Automations",
   ];
 

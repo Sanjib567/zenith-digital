@@ -420,22 +420,22 @@ export default function Navbar() {
       className="sticky top-0 z-50 bg-white shadow-sm"
     >
       <nav className="relative mx-auto flex max-w-[1400px] items-center justify-between gap-3 px-4 py-2.5 sm:px-6 lg:py-3">
-        {/* Logo: smaller on phones, larger on desktop */}
+        {/* Logo: bigger on every screen size */}
         <Link href="/" onClick={closeAll} className="flex shrink-0 items-center">
           <img
             src="/images/zenith-logo.jpeg"
             alt="Zenith Digital Agency logo"
-            className="h-14 w-auto object-contain sm:h-16 xl:h-24 2xl:h-28"
+           className="h-16 w-auto object-contain sm:h-20 lg:h-24 xl:h-28 2xl:h-32"
           />
         </Link>
 
-        {/* Desktop menu */}
-        <ul className="hidden items-center gap-0.5 xl:flex 2xl:gap-1">
+        {/* Desktop menu: larger text and spacing */}
+        <ul className="hidden items-center gap-1 xl:flex 2xl:gap-2">
           {navMenus.map((menu) => {
             const accent = accentOf(menu.label);
             const hasMega = !!menu.sections;
             const isOpen = openMenu === menu.label;
-            const className = `flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-2 text-xs font-semibold transition 2xl:gap-2 2xl:px-3 2xl:text-sm ${
+            const className = `flex items-center gap-2 whitespace-nowrap rounded-full px-3 py-2.5 text-sm font-bold transition 2xl:gap-2.5 2xl:px-4 2xl:text-base ${
               isOpen ? "" : "text-slate-800 hover:bg-slate-100"
             }`;
             const activeStyle: CSSProperties | undefined = isOpen
@@ -452,13 +452,13 @@ export default function Navbar() {
                     className={className}
                     style={activeStyle}
                   >
-                    <IconBadge Icon={menu.icon} size={13} box="h-6 w-6" accent={accent} />
+                    <IconBadge Icon={menu.icon} size={16} box="h-7 w-7" accent={accent} />
                     <span>{menu.label}</span>
-                    <ChevronDown size={13} className={`shrink-0 transition ${isOpen ? "rotate-180" : ""}`} />
+                    <ChevronDown size={16} className={`shrink-0 transition ${isOpen ? "rotate-180" : ""}`} />
                   </button>
                 ) : (
                   <Link href={menu.href} onClick={closeAll} className={className}>
-                    <IconBadge Icon={menu.icon} size={13} box="h-6 w-6" accent={accent} />
+                    <IconBadge Icon={menu.icon} size={16} box="h-7 w-7" accent={accent} />
                     <span>{menu.label}</span>
                   </Link>
                 )}
@@ -473,7 +473,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={closeAll}
-              className="inline-block whitespace-nowrap rounded-full bg-brand-gradient px-4 py-2.5 text-xs font-semibold text-white shadow-md transition hover:scale-105 2xl:px-6 2xl:text-sm"
+              className="inline-block whitespace-nowrap rounded-full bg-brand-gradient px-6 py-3 text-sm font-bold text-white shadow-md transition hover:scale-105 2xl:px-7 2xl:py-3.5 2xl:text-base"
             >
               Get A Free Consultation
             </Link>

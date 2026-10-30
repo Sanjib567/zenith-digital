@@ -53,7 +53,7 @@ export const countryPages: CountryPage[] = [
       "Zenith Digital serves businesses across India with SEO, web development, app development, AI solutions and digital marketing.",
     introTitle: "Digital Services Company in India — Zenith Digital",
     introParas: [
-      "Zenith Digital Agency is headquartered in Odisha, India. We deliver SEO, AI search visibility, web and ecommerce development and paid advertising for businesses of every size.",
+      "Zenith Digital Agency is headquartered in India. We deliver SEO, AI search visibility, web and ecommerce development and paid advertising for businesses of every size.",
       "We combine local market knowledge with modern technology, so Indian businesses can grow online with a clear plan and measurable results.",
     ],
     reach: "Bhubaneswar, Cuttack, Delhi, Mumbai, Bangalore, Kolkata, Hyderabad, Pune and Chennai",
