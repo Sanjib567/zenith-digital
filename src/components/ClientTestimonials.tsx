@@ -25,7 +25,7 @@ const testimonials = [
     name: "Freedom",
     role: "Director",
     company: "Better Filter, China",
-    image: "/images/testimonials/thiredClient.jpg",
+    image: "/images/testimonials/ThiredClient.jpg",
     rating: 5,
     text: "It was a pleasure working with Zenith Digital Agency. Your service is really great, good at listening to customers' ideas, strong execution, and you are doing very well. I can highly advise them to anyone looking to hire a trustworthy company for your business.",
   },
