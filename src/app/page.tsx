@@ -21,7 +21,7 @@ const badges = [
   "🌍 Global Reach from India",
 ];
 
-const partners = ["Healthcare", "Real Estate", "Ecommerce Stacks", "FinTech Solutions", "SaaS Enterprises"];
+
 
 const blogs = [
   { title: "Mastering AEO & GEO in 2026", cat: "AI SEO", date: "Oct 2026", seed: "blog1" },
@@ -126,22 +126,9 @@ export default function Home() {
       <ClientTestimonials />
 
       {/* 10. Trusted by Industry Leaders */}
-      <section className="mx-auto max-w-7xl px-6 py-16 text-center">
-        <Reveal>
-          <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Proven Results</p>
-          <h2 className="mt-2 font-[var(--font-heading)] text-2xl font-bold md:text-3xl">
-            <span className="text-brand-gradient">Trusted by Industry Leaders</span>
-          </h2>
-        </Reveal>
-
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-8 opacity-70 grayscale transition hover:grayscale-0 md:gap-14">
-          {partners.map((partner) => (
-            <span key={partner} className="text-lg font-extrabold tracking-wider text-slate-700 md:text-xl">
-              {partner}
-            </span>
-          ))}
-        </div>
-      </section>
+     
+      {/* 11. Industries & Tools */}
+      
 
       {/* 11. Industries & Tools */}
       <IndustriesAndTools />
