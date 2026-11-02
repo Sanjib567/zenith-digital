@@ -1,4 +1,3 @@
-
 import type { LucideIcon } from "lucide-react";
 import {
   Bot,
@@ -39,6 +38,12 @@ import {
   Star,
   CheckCircle2,
   Clock,
+  Server,
+  Cloud,
+  Brain,
+  Terminal,
+  Container,
+  Boxes,
 } from "lucide-react";
 
 // ============================================
@@ -52,6 +57,7 @@ export const siteConfig = {
   phone: "+918480718414",
   whatsapp: "+918480718414",
   location: "India",
+  address: "First Floor, Ghitorni, New Delhi, Delhi 110030",
 };
 
 export const topBarCountries = [
@@ -224,7 +230,7 @@ export const navMenus: MegaMenu[] = [
         "Built and supported from India",
       ],
       ctaLabel: "Explore AI Solutions",
-      ctaHref: "/services/seo-services",
+      ctaHref: "/ai-solutions",
     },
   },
 
@@ -345,68 +351,71 @@ export const navMenus: MegaMenu[] = [
     },
   },
 
-  {
+   {
     label: "Technologies",
     href: "/technologies",
     icon: Code2,
     headerTitle: "Tools We Work With",
     headerText:
-      "Modern tools for fast, secure and scalable projects.",
+      "Modern frontend, backend, cloud and AI tools for fast, secure and scalable projects.",
     sections: [
       {
         title: "Frontend & Frameworks",
         items: [
-          {
-            label: "React.js",
-            href: "/technologies",
-            icon: Code2,
-          },
-          {
-            label: "Next.js",
-            href: "/technologies",
-            icon: Globe,
-          },
-          {
-            label: "Vue.js",
-            href: "/technologies",
-            icon: Layers,
-          },
-          {
-            label: "Tailwind CSS",
-            href: "/technologies",
-            icon: Sparkles,
-          },
+          { label: "React.js", href: "/technologies", icon: Code2 },
+          { label: "Next.js", href: "/technologies", icon: Globe },
+          { label: "Vue.js", href: "/technologies", icon: Layers },
+          { label: "Tailwind CSS", href: "/technologies", icon: Sparkles },
         ],
       },
       {
         title: "CMS & Ecommerce Stacks",
         items: [
-          {
-            label: "WordPress",
-            href: "/technologies",
-            icon: LayoutTemplate,
-          },
-          {
-            label: "Shopify",
-            href: "/technologies",
-            icon: ShoppingCart,
-          },
-          {
-            label: "WooCommerce",
-            href: "/technologies",
-            icon: Store,
-          },
+          { label: "WordPress", href: "/technologies", icon: LayoutTemplate },
+          { label: "Shopify", href: "/technologies", icon: ShoppingCart },
+          { label: "WooCommerce", href: "/technologies", icon: Store },
+        ],
+      },
+      {
+        title: "Backend",
+        items: [
+          { label: "Laravel", href: "/technologies", icon: Boxes },
+          { label: "Express.js", href: "/technologies", icon: Terminal },
+          { label: "Node.js", href: "/technologies", icon: Server },
+          { label: "PHP", href: "/technologies", icon: Code2 },
+          { label: "Python", href: "/technologies", icon: Terminal },
+          { label: "CodeIgniter", href: "/technologies", icon: Boxes },
+        ],
+      },
+      {
+        title: "Cloud",
+        items: [
+          { label: "AWS", href: "/technologies", icon: Cloud },
+          { label: "Google Cloud", href: "/technologies", icon: Cloud },
+          { label: "Microsoft Azure", href: "/technologies", icon: Cloud },
+          { label: "DigitalOcean", href: "/technologies", icon: Container },
+        ],
+      },
+      {
+        title: "AI & Machine Learning",
+        items: [
+          { label: "OpenAI", href: "/technologies", icon: Sparkles },
+          { label: "Claude", href: "/technologies", icon: Bot },
+          { label: "Google Gemini", href: "/technologies", icon: Sparkles },
+          { label: "LangChain", href: "/technologies", icon: Workflow },
+          { label: "Pinecone", href: "/technologies", icon: Database },
         ],
       },
     ],
     panel: {
       title: "Tools We Work With",
       text:
-        "We choose the right technology stack for speed, security and easy updates.",
+        "We choose the right technology for speed, security, scale and intelligence, from the front end to the cloud.",
       highlights: [
         "Next.js and React for speed",
-        "WordPress and Shopify ecosystems",
-        "Analytics and tracking tools",
+        "Node.js, Laravel and Python backends",
+        "AWS, Google Cloud and Azure hosting",
+        "OpenAI, Claude and Gemini integrations",
       ],
       ctaLabel: "See Technologies",
       ctaHref: "/technologies",

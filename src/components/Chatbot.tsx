@@ -236,6 +236,14 @@ export default function Chatbot() {
           0%, 100% { box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.3); }
           50%      { box-shadow: 0 0 0 8px rgba(37, 99, 235, 0); }
         }
+        @keyframes pill-bob {
+          0%, 100% { transform: translateY(0); }
+          50%      { transform: translateY(-3px); }
+        }
+        @keyframes sticker-bob {
+          0%, 100% { transform: translateY(0) rotate(-6deg); }
+          50%      { transform: translateY(-8px) rotate(-3deg); }
+        }
 
         .chat-panel-in  { animation: chat-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
         .chat-panel-out { animation: chat-out 0.22s ease-in both; }
@@ -263,11 +271,13 @@ export default function Chatbot() {
         }
         .chat-sweep { animation: sweep 8s ease-in-out infinite; }
         .pill-bounce { animation: pill-bounce 0.8s cubic-bezier(0.22, 1, 0.36, 1) both; }
+        .pill-bob    { animation: pill-bob 2.6s ease-in-out infinite; }
         .pill-glow   { animation: pill-glow 2.4s ease-out infinite; }
+        .sticker-bob { animation: sticker-bob 1.8s ease-in-out infinite; }
 
         @media (prefers-reduced-motion: reduce) {
           .chat-panel-in, .chat-panel-out, .msg-in, .chip-in, .shimmer-text,
-          .chat-mesh, .chat-sweep, .pill-bounce, .pill-glow {
+          .chat-mesh, .chat-sweep, .pill-bounce, .pill-bob, .pill-glow, .sticker-bob {
             animation: none !important;
           }
         }
@@ -413,7 +423,7 @@ export default function Chatbot() {
         </div>
       )}
 
-      {/* Launcher: same bottom row as WhatsApp, same 48px height on phones */}
+      {/* Launcher: pill with logo and label, with a large centred "We are here!" sticker above it */}
       {!open && (
         <button
           key={bounceKey}
@@ -422,9 +432,27 @@ export default function Chatbot() {
           aria-label="Open chat with Zenith"
           className="pill-bounce group fixed bottom-4 right-4 z-50 flex h-12 items-center gap-2 rounded-full bg-white pl-1 pr-3 shadow-xl ring-1 ring-slate-200 transition duration-300 hover:shadow-2xl sm:bottom-6 sm:right-6 sm:h-16 sm:gap-2.5 sm:pr-4"
         >
-          <span className="pill-glow relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white ring-2 ring-brand-blue/20 sm:h-12 sm:w-12">
-            <img src="/images/zenith-logo.jpeg" alt="" className="h-8 w-8 rounded-full object-contain sm:h-10 sm:w-10" />
-            <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-white bg-emerald-400" />
+          {/* Sticker: large, centred above the chat pill, bobbing up and down */}
+          <span className="pointer-events-none absolute bottom-full left-1/2 mb-1 -translate-x-1/2">
+            <span
+              className="sticker-bob block whitespace-nowrap text-center text-3xl font-black italic leading-[1] text-brand-blue sm:text-4xl"
+              style={{
+                fontFamily: "'Brush Script MT', 'Segoe Script', 'Comic Sans MS', cursive",
+                textShadow:
+                  "4px 0 #fff, -4px 0 #fff, 0 4px #fff, 0 -4px #fff, 3px 3px #fff, -3px -3px #fff, 3px -3px #fff, -3px 3px #fff",
+              }}
+            >
+              We are
+              <br />
+              here!
+            </span>
+          </span>
+
+          <span className="pill-bob flex items-center">
+            <span className="pill-glow relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white ring-2 ring-brand-blue/20 sm:h-12 sm:w-12">
+              <img src="/images/zenith-logo.jpeg" alt="" className="h-8 w-8 rounded-full object-contain sm:h-10 sm:w-10" />
+              <span className="absolute -right-0.5 -top-0.5 h-3 w-3 rounded-full border-2 border-white bg-emerald-400" />
+            </span>
           </span>
           <span className="flex flex-col items-start leading-tight">
             <span className="text-xs font-extrabold text-brand-navy transition group-hover:text-brand-blue sm:text-sm">

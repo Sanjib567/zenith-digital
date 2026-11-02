@@ -3,6 +3,12 @@ import { notFound } from "next/navigation";
 import { ArrowRight, Phone, MessageCircle } from "lucide-react";
 import { navMenus, siteConfig } from "@/data/site";
 import { findItem, findMenu, isExternalHref, itemHref, menuSlug, slugify } from "@/lib/menu";
+import ServiceDetail from "@/components/ServiceDetail";
+import ServicePage from "@/components/ServicePage";
+import TechPage from "@/components/TechPage";
+import { findAiService } from "@/data/aiRegistry";
+import { findAllSolution as findSolution } from "@/data/solutionsAll";
+import { findTech } from "@/data/technologies";
 
 export function generateStaticParams() {
   return navMenus
@@ -22,6 +28,22 @@ export default async function MenuItemPage({
   params: Promise<{ menu: string; item: string }>;
 }) {
   const { menu: menuParam, item: itemParam } = await params;
+
+  if (menuParam === "ai-solutions") {
+    const detail = findAiService(itemParam);
+    if (detail) return <ServiceDetail service={detail} />;
+  }
+
+  if (menuParam === "services") {
+    const solution = findSolution(itemParam);
+    if (solution) return <ServicePage page={solution} />;
+  }
+
+  if (menuParam === "technologies") {
+    const tech = findTech(itemParam);
+    if (tech) return <TechPage tech={tech} />;
+  }
+
   const menu = findMenu(menuParam);
   const found = menu ? findItem(menu, itemParam) : null;
   if (!menu || !found) notFound();

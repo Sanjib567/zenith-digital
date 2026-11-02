@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
+import { ArrowRight, ExternalLink, Mail, MapPin, MessageCircle, Phone, CheckCircle2 } from "lucide-react";
 import { siteConfig, services, navMenus } from "@/data/site";
 import BackToTop from "@/components/BackToTop";
 
@@ -55,11 +55,21 @@ const socials = [
 ];
 
 const aiLinks = navMenus.find((m) => m.label === "AI Solutions")?.sections?.[0]?.items ?? [];
-const companyLinks = navMenus.find((m) => m.label === "Company")?.sections?.[0]?.items ?? [];
+
+const highlights = [
+  "AI search and AEO/GEO optimisation",
+  "Websites, landing pages and online stores",
+  "Google, Meta and local SEO campaigns",
+  "AI chatbots, automation and integrations",
+];
 
 const whatsappLink = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(
   "Hello Zenith Digital, I would like a free consultation."
 )}`;
+
+const mapQuery = encodeURIComponent(siteConfig.address);
+const mapEmbed = `https://www.google.com/maps?q=${mapQuery}&output=embed`;
+const mapOpen = `https://www.google.com/maps/search/?api=1&query=${mapQuery}`;
 
 type LinkItem = { label: string; href: string };
 
@@ -77,10 +87,7 @@ function FooterColumn({ title, links }: { title: string; links: LinkItem[] }) {
               href={l.href}
               className="group flex items-start gap-2 text-sm font-bold text-white transition hover:text-blue-300"
             >
-              <ArrowRight
-                size={14}
-                className="mt-0.5 shrink-0 text-blue-400 transition group-hover:translate-x-1"
-              />
+              <ArrowRight size={14} className="mt-0.5 shrink-0 text-blue-400 transition group-hover:translate-x-1" />
               <span>{l.label}</span>
             </Link>
           </li>
@@ -117,12 +124,31 @@ export default function Footer() {
         <div className="mt-12 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <Link href="/" className="inline-block rounded-xl bg-white p-2.5 shadow-lg">
-              <img src="/images/zenith-logo.jpeg" alt="Zenith Digital Agency logo" className="h-16 w-auto" />
+            <Link
+              href="/"
+              className="group inline-flex rounded-2xl bg-white p-4 shadow-xl ring-1 ring-white/20 transition hover:scale-105"
+            >
+              <img
+                src="/images/zenith-logo.jpeg"
+                alt="Zenith Digital Agency logo"
+                className="h-24 w-auto object-contain sm:h-28"
+              />
             </Link>
-            <p className="mt-5 text-sm leading-relaxed text-white/70">
-              {siteConfig.name} is an {siteConfig.tagline.toLowerCase()} based in {siteConfig.location}.
+
+            <p className="mt-6 text-base leading-relaxed text-white/80">
+              {siteConfig.name} is a team of web developers, AI specialists and digital marketers based in{" "}
+              {siteConfig.location}. We help businesses get found online, convert visitors into customers and
+              automate the work that slows them down.
             </p>
+
+            <ul className="mt-5 space-y-2.5">
+              {highlights.map((h) => (
+                <li key={h} className="flex items-start gap-2.5 text-sm font-semibold text-white/85">
+                  <CheckCircle2 size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                  {h}
+                </li>
+              ))}
+            </ul>
           </div>
 
           <FooterColumn title="AI Solutions" links={aiLinks.map((i) => ({ label: i.label, href: i.href }))} />
@@ -154,9 +180,16 @@ export default function Footer() {
                   {siteConfig.phone}
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <MapPin size={16} className="mt-0.5 shrink-0 text-blue-400" />
-                {siteConfig.location}
+              <li>
+                <a
+                  href={mapOpen}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-start gap-3 leading-relaxed transition hover:text-blue-300"
+                >
+                  <MapPin size={16} className="mt-0.5 shrink-0 text-blue-400" />
+                  <span>{siteConfig.address}</span>
+                </a>
               </li>
             </ul>
             <a
@@ -168,6 +201,37 @@ export default function Footer() {
               <MessageCircle size={16} /> Chat on WhatsApp
             </a>
           </div>
+        </div>
+
+        {/* Live location map */}
+        <div className="mt-12 overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl">
+          <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-gradient text-white shadow-md">
+                <MapPin size={16} />
+              </span>
+              <div>
+                <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-blue-300">Our office</p>
+                <p className="text-sm font-bold text-white">{siteConfig.address}</p>
+              </div>
+            </div>
+            <a
+              href={mapOpen}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-bold text-white ring-1 ring-white/20 transition hover:bg-white/20"
+            >
+              Open in Maps <ExternalLink size={14} />
+            </a>
+          </div>
+          <iframe
+            title={`Map showing ${siteConfig.name} office`}
+            src={mapEmbed}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-56 w-full border-0 md:h-64"
+            allowFullScreen
+          />
         </div>
 
         {/* Bottom row */}

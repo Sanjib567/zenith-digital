@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 type IncomingMessage = { role: "user" | "bot"; text: string };
 
-const MODEL = "gemini-2.5-flash";
+const MODEL = "gemini-3.8-flash";
 
 // Simple rate limit: 20 messages per visitor every 10 minutes
 const WINDOW_MS = 10 * 60 * 1000;

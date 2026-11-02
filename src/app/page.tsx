@@ -3,12 +3,13 @@ import Hero from "@/components/Hero";
 import MarqueeBar from "@/components/MarqueeBar";
 import AboutSection from "@/components/AboutSection";
 import ToolsPlatforms from "@/components/ToolsPlatforms";
-import ClientTestimonials from "@/components/ClientTestimonials";
+import VideoTestimonials from "@/components/VideoTestimonials";
 import IndustriesAndTools from "@/components/IndustriesAndTools";
 import EngagementModels from "@/components/EngagementModels";
 import ToolsMarquee from "@/components/ToolsMarquee";
 import Portfolio from "@/components/Portfolio";
 import Reveal from "@/components/Reveal";
+import BlogSection from "@/components/BlogSection";
 import FaqAccordion from "@/components/FaqAccordion";
 import ServiceCard from "@/components/ServiceCard";
 import { services, whyUs, faqs } from "@/data/site";
@@ -19,14 +20,6 @@ const badges = [
   "🚀 AI-Powered Growth",
   "⚡ 24/7 Support",
   "🌍 Global Reach from India",
-];
-
-
-
-const blogs = [
-  { title: "Mastering AEO & GEO in 2026", cat: "AI SEO", date: "Oct 2026", seed: "blog1" },
-  { title: "Why Next.js Outperforms Traditional CMS", cat: "Web Dev", date: "Oct 2026", seed: "blog2" },
-  { title: "Scaling Local Businesses with Targeted Meta Ads", cat: "Marketing", date: "Sep 2026", seed: "blog3" },
 ];
 
 export default function Home() {
@@ -122,56 +115,21 @@ export default function Home() {
         </div>
       </div>
 
-      {/* 9. Client Testimonials */}
-      <ClientTestimonials />
+      {/* 9. Video Testimonials */}
+      <VideoTestimonials />
 
-      {/* 10. Trusted by Industry Leaders */}
-     
-      {/* 11. Industries & Tools */}
-      
-
-      {/* 11. Industries & Tools */}
+      {/* 10. Industries & Tools */}
       <IndustriesAndTools />
 
-      {/* 12. Flexible Ways to Engage */}
+      {/* 11. Flexible Ways to Engage */}
       <EngagementModels />
 
-      {/* 13. Blog & Insights */}
-      <section className="mx-auto max-w-7xl px-6 py-16">
-        <Reveal>
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-orange">Knowledge Hub</p>
-          <h2 className="mt-2 font-[var(--font-heading)] text-3xl font-bold md:text-4xl">
-            <span className="text-brand-gradient">Blog &amp; Insights</span>
-          </h2>
-          <p className="mt-2 text-brand-navy/70">
-            Latest strategies on Web Development, AI Search, and Digital Marketing.
-          </p>
-        </Reveal>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {blogs.map((b, i) => (
-            <Reveal key={b.title} delay={i * 0.1}>
-              <article className="overflow-hidden rounded-2xl border border-brand-navy/5 bg-white shadow-md">
-                <img
-                  src={`https://picsum.photos/seed/${b.seed}/600/350`}
-                  alt={b.title}
-                  className="h-44 w-full object-cover"
-                />
-                <div className="p-5">
-                  <span className="text-xs font-bold uppercase text-brand-blue">{b.cat}</span>
-                  <span className="text-xs text-slate-500"> • {b.date}</span>
-                  <h3 className="mt-2 text-base font-bold text-brand-navy">{b.title}</h3>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* 14. AI & SEO Tools Marquee */}
+      {/* 12. AI & SEO Tools Marquee */}
       <ToolsMarquee />
+      
+      <BlogSection />
 
-      {/* 15. FAQ */}
+      {/* 13. FAQ */}
       <section id="faq" className="mx-auto max-w-7xl px-6 py-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
           <div className="lg:col-span-5">
@@ -222,7 +180,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 16. Call to Action */}
+      {/* 14. Call to Action */}
       <section className="bg-brand-gradient px-6 py-20 text-center text-white shadow-xl">
         <div className="mx-auto max-w-3xl">
           <h2 className="font-[var(--font-heading)] text-3xl font-extrabold md:text-4xl">
