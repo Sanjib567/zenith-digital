@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import Script from "next/script";
 import { Montserrat, Inter } from "next/font/google";
 import "./globals.css";
 import TopBar from "@/components/TopBar";
@@ -19,8 +20,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={`${heading.variable} ${body.variable} font-[var(--font-body)] antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${heading.variable} ${body.variable} font-[var(--font-body)] antialiased`} suppressHydrationWarning>
+        <Script id="strip-extension-attrs" strategy="beforeInteractive">
+          {`(function(){try{new MutationObserver(function(ms){for(var i=0;i<ms.length;i++){var t=ms[i].target;if(t&&t.removeAttribute)t.removeAttribute("fdprocessedid");}}).observe(document.documentElement,{attributes:true,subtree:true,attributeFilter:["fdprocessedid"]});}catch(e){}})();`}
+        </Script>
         <IntroSplash />
 
         {/* Top bar and navbar stay together at the top while scrolling */}

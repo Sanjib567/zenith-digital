@@ -1,14 +1,20 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ArrowRight, Phone, MessageCircle } from "lucide-react";
 import { navMenus, siteConfig } from "@/data/site";
 import { findItem, findMenu, isExternalHref, itemHref, menuSlug, slugify } from "@/lib/menu";
 import ServiceDetail from "@/components/ServiceDetail";
 import ServicePage from "@/components/ServicePage";
 import TechPage from "@/components/TechPage";
+import CompanyPage from "@/components/CompanyPage";
+import AboutPage from "@/components/AboutPage";
+import { VideoReviewsPage, ClientsPage } from "@/components/Showcase";
+import { RecentWorkPage } from "@/components/RecentWork";
+import { FaqPage, ContactUsPage, PrivacyPage, TermsPage } from "@/components/SupportPages";
 import { findAiService } from "@/data/aiRegistry";
 import { findAllSolution as findSolution } from "@/data/solutionsAll";
 import { findTech } from "@/data/technologies";
+import { findCompany } from "@/data/company";
 
 export function generateStaticParams() {
   return navMenus
@@ -42,6 +48,25 @@ export default async function MenuItemPage({
   if (menuParam === "technologies") {
     const tech = findTech(itemParam);
     if (tech) return <TechPage tech={tech} />;
+  }
+
+  if (menuParam === "contact") {
+    if (itemParam === "contact-us") redirect("/contact");
+    if (itemParam === "get-a-quote") redirect("/contact/get-quote");
+    if (itemParam === "schedule-a-meeting") redirect("/contact/schedule-meeting");
+  }
+
+  if (menuParam === "company") {
+    if (itemParam === "about-us") return <AboutPage />;
+    if (itemParam === "faq") return <FaqPage />;
+    if (itemParam === "contact-us") return <ContactUsPage />;
+    if (itemParam === "privacy-policy") return <PrivacyPage />;
+    if (itemParam === "terms-conditions") return <TermsPage />;
+    const page = findCompany(itemParam);
+    if (page?.label === "Video Client Reviews") return <VideoReviewsPage />;
+    if (page?.label === "What Our Clients Say") return <ClientsPage />;
+    if (page?.label === "Recent Work / Case Studies") return <RecentWorkPage />;
+    if (page) return <CompanyPage page={page} />;
   }
 
   const menu = findMenu(menuParam);

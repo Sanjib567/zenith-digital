@@ -219,24 +219,6 @@ export default async function CountryPage({
         </div>
       </section>
 
-      {/* Recent work photos */}
-      <section className="mx-auto max-w-7xl px-6 py-20">
-        <h2 className="font-[var(--font-heading)] text-3xl font-extrabold text-slate-900 md:text-4xl">
-          Recent Work in {c.name}
-        </h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {["a", "b", "c"].map((k) => (
-            <div key={k} className="overflow-hidden rounded-2xl shadow-md">
-              <img
-                src={`https://picsum.photos/seed/${c.slug}-work-${k}/600/400`}
-                alt={`${c.name} project ${k.toUpperCase()}`}
-                className="h-56 w-full object-cover transition duration-500 hover:scale-105"
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Other locations with flags */}
       <section className="bg-slate-50 px-6 py-20">
         <div className="mx-auto max-w-7xl">
@@ -259,7 +241,6 @@ export default async function CountryPage({
           </div>
         </div>
       </section>
-
       {/* Call to action with animated buttons */}
       <section className="bg-brand-gradient px-6 py-16 text-center text-white">
         <h2 className="font-[var(--font-heading)] text-3xl font-extrabold md:text-4xl">

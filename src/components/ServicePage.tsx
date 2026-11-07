@@ -14,6 +14,7 @@ import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import { allGroups, allPages } from "@/data/solutionsAll";
 import type { SolutionPage } from "@/data/solutions";
+import { servicePhotos } from "@/lib/images";
 
 type Tone = { from: string; to: string };
 
@@ -154,11 +155,22 @@ export default function ServicePage({ page }: { page: SolutionPage }) {
   const extra = GROUP_EXTRA[page.group] ?? GROUP_EXTRA.web;
   const related = allPages.filter((p) => p.group === page.group && p.slug !== page.slug);
   const PageIcon = page.icon;
+  const photo = servicePhotos[page.slug];
 
   return (
     <main className="relative w-full overflow-hidden bg-gradient-to-br from-blue-50 via-pink-50 to-rose-50">
       {/* HERO */}
-      <section className="sp-flow relative w-full overflow-hidden px-6 pb-28 pt-14 text-white md:px-12 xl:px-20 2xl:px-28">
+      <section className={`sp-flow relative w-full overflow-hidden text-white ${photo ? "px-6 pb-16 pt-8 md:px-10 xl:px-16" : "px-6 pb-28 pt-14 md:px-12 xl:px-20 2xl:px-28"}`}>
+        {photo && (
+          <>
+            <img
+              src={photo}
+              alt=""
+              className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#1e3a8a]/88 via-[#7c3aed]/72 to-[#db2777]/78" />
+          </>
+        )}
         <div className="sp-grid pointer-events-none absolute inset-0 opacity-25" />
         <div className="sp-blob pointer-events-none absolute -left-24 top-10 h-96 w-96 rounded-full bg-white/25 blur-3xl" />
         <div className="sp-blob sp-blob-b pointer-events-none absolute -right-24 bottom-0 h-[28rem] w-[28rem] rounded-full bg-amber-200/30 blur-3xl" />
@@ -169,7 +181,7 @@ export default function ServicePage({ page }: { page: SolutionPage }) {
           );
         })}
 
-        <div className="relative grid items-center gap-12 lg:grid-cols-2">
+        <div className={`relative grid items-center lg:grid-cols-2 ${photo ? "gap-8" : "gap-12"}`}>
           <div>
             <nav className="sp-rise flex flex-wrap items-center gap-2 text-xs font-bold text-white/80">
               <Link href="/" className="hover:text-white">Home</Link>
@@ -179,64 +191,84 @@ export default function ServicePage({ page }: { page: SolutionPage }) {
               <span className="text-white">{page.title}</span>
             </nav>
 
-            <div className="sp-rise mt-8 flex items-center gap-3" style={{ animationDelay: "80ms" }}>
-              <span className="sp-pulse flex h-12 w-12 items-center justify-center rounded-2xl bg-white text-brand-blue shadow-xl">
-                <Sparkles size={20} />
+            <div className={`sp-rise flex items-center gap-3 ${photo ? "mt-4" : "mt-8"}`} style={{ animationDelay: "80ms" }}>
+              <span className={`sp-pulse flex items-center justify-center rounded-2xl bg-white text-brand-blue shadow-xl ${photo ? "h-10 w-10" : "h-12 w-12"}`}>
+                <Sparkles size={photo ? 16 : 20} />
               </span>
               <span className="rounded-full bg-white/20 px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.25em] ring-1 ring-white/40 backdrop-blur">
                 {group.label}
               </span>
             </div>
 
-            <h1 className="sp-rise mt-6 font-[var(--font-heading)] text-4xl font-extrabold leading-tight drop-shadow-lg md:text-6xl" style={{ animationDelay: "160ms" }}>
+            <h1 className={`sp-rise font-[var(--font-heading)] font-extrabold leading-tight drop-shadow-lg ${photo ? "mt-4 text-3xl md:text-5xl" : "mt-6 text-4xl md:text-6xl"}`} style={{ animationDelay: "160ms" }}>
               {page.title}
             </h1>
-            <p className="sp-rise mt-5 text-xl font-extrabold text-white" style={{ animationDelay: "240ms" }}>{page.tagline}</p>
-            <p className="sp-rise mt-4 max-w-xl text-base text-white/90" style={{ animationDelay: "320ms" }}>{page.intro}</p>
+            <p className={`sp-rise font-extrabold text-white ${photo ? "mt-3 text-base md:text-lg" : "mt-5 text-xl"}`} style={{ animationDelay: "240ms" }}>{page.tagline}</p>
+            <p className={`sp-rise max-w-xl text-white/90 ${photo ? "mt-2 text-sm" : "mt-4 text-base"}`} style={{ animationDelay: "320ms" }}>{page.intro}</p>
 
-            <div className="sp-rise mt-8 flex flex-wrap gap-3" style={{ animationDelay: "400ms" }}>
-              <Link href="/contact" className="sp-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white px-7 py-3.5 text-sm font-extrabold text-brand-navy shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl">
+            <div className={`sp-rise flex flex-wrap gap-3 ${photo ? "mt-5" : "mt-8"}`} style={{ animationDelay: "400ms" }}>
+              <Link href="/contact" className={`sp-shine group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-white font-extrabold text-brand-navy shadow-xl transition hover:-translate-y-0.5 hover:shadow-2xl ${photo ? "px-6 py-2.5 text-sm" : "px-7 py-3.5 text-sm"}`}>
                 Get a free quote
                 <ArrowRight size={16} className="transition group-hover:translate-x-1" />
               </Link>
-              <Link href="/#faq" className="rounded-full border-2 border-white px-7 py-3 text-sm font-extrabold text-white transition hover:bg-white hover:text-brand-navy">
+              <Link href="/#faq" className={`rounded-full border-2 border-white font-extrabold text-white transition hover:bg-white hover:text-brand-navy ${photo ? "px-6 py-2 text-sm" : "px-7 py-3 text-sm"}`}>
                 Read the FAQs
               </Link>
             </div>
           </div>
 
-          <div className="sp-rise relative mx-auto w-full max-w-md" style={{ animationDelay: "200ms" }}>
+          <div className={`sp-rise relative mx-auto w-full ${photo ? "max-w-sm" : "max-w-md"}`} style={{ animationDelay: "200ms" }}>
             <div className="sp-glow-ring absolute -inset-3 rounded-[2.5rem] opacity-70 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/30 bg-white/15 p-8 shadow-2xl backdrop-blur-xl">
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/90">Key numbers</p>
-                <span className="relative flex h-3 w-3">
-                  <span className="sp-ping absolute inline-flex h-full w-full rounded-full bg-white" />
-                  <span className="relative inline-flex h-3 w-3 rounded-full bg-white" />
-                </span>
-              </div>
-              <div className="mt-6 space-y-6">
-                {page.stats.map((s, i) => (
-                  <div key={s.label} className="sp-stat flex items-center justify-between gap-4 border-b border-white/20 pb-5 last:border-0 last:pb-0" style={{ animationDelay: `${i * 150}ms` }}>
-                    <div>
-                      <p className="font-[var(--font-heading)] text-4xl font-extrabold">
-                        <CountUp end={s.end} suffix={s.suffix} duration={1600 + i * 200} />
-                      </p>
-                      <p className="mt-1 text-sm font-semibold text-white/85">{s.label}</p>
-                    </div>
-                    <span className="sp-pulse flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-brand-blue shadow-lg">
-                      <PageIcon size={20} />
-                    </span>
+            {photo ? (
+              <div className="relative overflow-hidden rounded-3xl border border-white/30 shadow-2xl">
+                <img src={photo} alt={page.title} className="h-52 w-full object-cover md:h-60" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-4">
+                  <p className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-white/80">Key numbers</p>
+                  <div className="mt-3 grid grid-cols-3 gap-2">
+                    {page.stats.map((s) => (
+                      <div key={s.label}>
+                        <p className="font-[var(--font-heading)] text-xl font-extrabold">
+                          <CountUp end={s.end} suffix={s.suffix} duration={1600} />
+                        </p>
+                        <p className="mt-0.5 text-[10px] font-semibold leading-tight text-white/85">{s.label}</p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="relative overflow-hidden rounded-[2.5rem] border border-white/30 bg-white/15 p-8 shadow-2xl backdrop-blur-xl">
+                <div className="flex items-center justify-between">
+                  <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/90">Key numbers</p>
+                  <span className="relative flex h-3 w-3">
+                    <span className="sp-ping absolute inline-flex h-full w-full rounded-full bg-white" />
+                    <span className="relative inline-flex h-3 w-3 rounded-full bg-white" />
+                  </span>
+                </div>
+                <div className="mt-6 space-y-6">
+                  {page.stats.map((s, i) => (
+                    <div key={s.label} className="sp-stat flex items-center justify-between gap-4 border-b border-white/20 pb-5 last:border-0 last:pb-0" style={{ animationDelay: `${i * 150}ms` }}>
+                      <div>
+                        <p className="font-[var(--font-heading)] text-4xl font-extrabold">
+                          <CountUp end={s.end} suffix={s.suffix} duration={1600 + i * 200} />
+                        </p>
+                        <p className="mt-1 text-sm font-semibold text-white/85">{s.label}</p>
+                      </div>
+                      <span className="sp-pulse flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-white text-brand-blue shadow-lg">
+                        <PageIcon size={20} />
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       {/* BENEFITS MARQUEE */}
-      <div className="relative -mt-8 overflow-hidden bg-gradient-to-r from-blue-600 via-pink-500 to-rose-500 py-5 shadow-xl">
+      <div className={`relative overflow-hidden bg-gradient-to-r from-blue-600 via-pink-500 to-rose-500 shadow-xl ${photo ? "-mt-5 py-3" : "-mt-8 py-5"}`}>
         <div className="sp-marquee flex w-max gap-12 whitespace-nowrap">
           {[...group.benefits, ...group.benefits].map((b, i) => (
             <span key={i} className="flex items-center gap-3 text-sm font-extrabold uppercase tracking-widest text-white">

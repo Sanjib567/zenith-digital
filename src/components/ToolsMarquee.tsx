@@ -14,7 +14,7 @@ const cdn = (slug: string) => `https://cdn.simpleicons.org/${slug}`;
 const tools: Tool[] = [
   {
     name: "ChatGPT",
-    sources: ["/logos/chatgpt.png", cdn("openai")],
+    sources: ["/logos/chatgpt.svg", cdn("openai")],
     fallback: "AI",
     from: "from-emerald-500",
     to: "to-teal-600",

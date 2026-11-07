@@ -186,12 +186,12 @@ const raw: Omit<SolutionPage, "slug">[] = [
     ],
   },
   {
-    title: "SEO Services",
+    title: "SEO & AI Search Optimization",
     group: "marketing",
     icon: Search,
-    tagline: "Rank higher on Google and get found by people searching for you.",
+    tagline: "Rank higher on Google and appear in AI-powered search answers.",
     intro:
-      "Our SEO services combine technical fixes, keyword strategy and quality content, so your website earns steady organic traffic that keeps working month after month.",
+      "Our SEO and AI search work combines technical fixes, content optimisation and AEO/GEO so your business ranks on Google, shows up in AI answers and attracts traffic that converts into customers.",
     stats: [
       { end: 90, suffix: "+", label: "Technical checks per audit" },
       { end: 6, suffix: " mo", label: "Typical growth horizon" },
@@ -244,7 +244,34 @@ const raw: Omit<SolutionPage, "slug">[] = [
   },
 ];
 
-export const solutionPages: SolutionPage[] = raw.map((p) => ({ ...p, slug: slugify(p.title) }));
+const ppcManagementPage: SolutionPage = {
+  slug: "ppc-management",
+  title: "PPC & Social Media Advertising",
+  group: "marketing",
+  icon: Megaphone,
+  tagline: "Google Ads and Meta campaigns that turn spend into leads and sales.",
+  intro:
+    "We plan, launch and optimise performance-focused Google Ads and Meta Ads campaigns designed to reach the right audience, control ad spend and deliver measurable enquiries, bookings and sales.",
+  stats: [
+    { end: 2, suffix: "", label: "Core ad platforms" },
+    { end: 100, suffix: "%", label: "Budget transparency" },
+    { end: 7, suffix: " days", label: "Performance review cycle" },
+  ],
+  features: [
+    { title: "Google Ads", text: "Search, Display and YouTube ads that appear when people look for what you sell.", icon: Search },
+    { title: "Meta Ads", text: "Facebook and Instagram campaigns targeted by location, interest and behaviour.", icon: Share2 },
+    { title: "Conversion tracking", text: "Calls, forms and purchases are tracked so you see which ads actually pay back.", icon: BarChart3 },
+    { title: "Spend optimisation", text: "Budget is moved to the ads, audiences and keywords that produce the best results.", icon: Gauge },
+  ],
+};
+
+export const solutionPages: SolutionPage[] = [
+  ...raw.map((p) => ({
+    ...p,
+    slug: p.title === "SEO & AI Search Optimization" ? "seo-services" : slugify(p.title),
+  })),
+  ppcManagementPage,
+];
 
 export function findSolution(slug: string) {
   return solutionPages.find((p) => p.slug === slug);

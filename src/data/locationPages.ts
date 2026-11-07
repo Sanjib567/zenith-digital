@@ -56,7 +56,7 @@ export const countryPages: CountryPage[] = [
       "Zenith Digital Agency is headquartered in India. We deliver SEO, AI search visibility, web and ecommerce development and paid advertising for businesses of every size.",
       "We combine local market knowledge with modern technology, so Indian businesses can grow online with a clear plan and measurable results.",
     ],
-    reach: "Bhubaneswar, Cuttack, Delhi, Mumbai, Bangalore, Kolkata, Hyderabad, Pune and Chennai",
+    reach: " Delhi, Mumbai, Bangalore, Kolkata, Hyderabad, Pune and Chennai",
   },
   {
     slug: "usa",

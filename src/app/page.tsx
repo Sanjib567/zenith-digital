@@ -13,6 +13,7 @@ import BlogSection from "@/components/BlogSection";
 import FaqAccordion from "@/components/FaqAccordion";
 import ServiceCard from "@/components/ServiceCard";
 import { services, whyUs, faqs } from "@/data/site";
+import ClientTestimonials from "@/components/ClientTestimonials";
 
 const badges = [
   "⭐ 100+ Delivered Projects",
@@ -33,6 +34,7 @@ export default function Home() {
 
       {/* 3. About Us */}
       <AboutSection />
+    
 
       {/* 4. Our Expertise */}
       <section className="mx-auto max-w-7xl px-6 py-16">
@@ -126,8 +128,11 @@ export default function Home() {
 
       {/* 12. AI & SEO Tools Marquee */}
       <ToolsMarquee />
+      <ClientTestimonials/>
       
       <BlogSection />
+            {/* Client reviews */}
+      
 
       {/* 13. FAQ */}
       <section id="faq" className="mx-auto max-w-7xl px-6 py-20">

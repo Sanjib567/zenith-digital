@@ -61,6 +61,26 @@ export const commerceGroups: Record<"ecommerce" | "industries", SolutionGroup> =
 
 export const commercePages: SolutionPage[] = [
   {
+    slug: "ecommerce-development",
+    title: "Ecommerce Development",
+    group: "ecommerce",
+    icon: ShoppingCart,
+    tagline: "Launch and grow an online store that is fast, secure and easy to run.",
+    intro:
+      "We build tailored Shopify, WooCommerce and custom ecommerce stores with secure payments, clear product pages, mobile checkout and simple product management, so you can sell more without fighting your website.",
+    stats: [
+      { end: 3, suffix: "", label: "Platforms we build on" },
+      { end: 100, suffix: "%", label: "Mobile-ready checkouts" },
+      { end: 4, suffix: " wks", label: "Typical store launch" },
+    ],
+    features: [
+      { title: "Shopify, WooCommerce or custom", text: "We recommend the platform that fits your catalogue, budget and growth plans, then build it properly.", icon: Store },
+      { title: "Secure payments", text: "Trusted gateways, SSL and a short checkout that reduces drop-offs on every device.", icon: CreditCard },
+      { title: "Product and order management", text: "Stock, prices, variants and orders stay organised so your team can update the store without a developer.", icon: Package },
+      { title: "Built to convert", text: "Clear product pages, reviews, shipping info and abandoned-cart follow-up that turn browsers into buyers.", icon: TrendingUp },
+    ],
+  },
+  {
     slug: "shopify-development",
     title: "Shopify Development",
     group: "ecommerce",

@@ -38,6 +38,7 @@ import {
   Star,
   CheckCircle2,
   Clock,
+  Calendar,
   Server,
   Cloud,
   Brain,
@@ -483,24 +484,24 @@ export const navMenus: MegaMenu[] = [
       {
         title: "Support & Legal",
         items: [
-          {
+                   {
             label: "FAQ",
-            href: "/#faq",
+            href: "/menu/company/faq",
             icon: HelpCircle,
           },
           {
             label: "Contact Us",
-            href: "/contact",
+            href: "/menu/company/contact-us",
             icon: Mail,
           },
           {
             label: "Privacy Policy",
-            href: "/company",
+            href: "/menu/company/privacy-policy",
             icon: Shield,
           },
           {
             label: "Terms & Conditions",
-            href: "/company",
+            href: "/menu/company/terms-conditions",
             icon: FileText,
           },
         ],
@@ -532,7 +533,7 @@ export const navMenus: MegaMenu[] = [
         title: "Head Office",
         items: [
           {
-            label: " India",
+            label: "India",
             href: "/locations",
             icon: MapPin,
           },
@@ -591,6 +592,41 @@ export const navMenus: MegaMenu[] = [
     label: "Contact",
     href: "/contact",
     icon: User,
+    headerTitle: "Talk to Zenith",
+    headerText: "Get in touch, request a quote or book a meeting with our team in India.",
+    sections: [
+      {
+        title: "Reach the team",
+        items: [
+          {
+            label: "Contact Us",
+            href: "/contact",
+            icon: Mail,
+          },
+          {
+            label: "Get a Quote",
+            href: "/contact/get-quote",
+            icon: FileText,
+          },
+          {
+            label: "Schedule a Meeting",
+            href: "/contact/schedule-meeting",
+            icon: Calendar,
+          },
+        ],
+      },
+    ],
+    panel: {
+      title: "Ready to start?",
+      text: "Tell us what you need. We reply within one business day with a clear next step.",
+      highlights: [
+        "Free consultation",
+        "Written quote in 24 hours",
+        "Meet on a call that suits you",
+      ],
+      ctaLabel: "Get A Free Consultation",
+      ctaHref: "/contact/get-quote",
+    },
   },
 ];
 
