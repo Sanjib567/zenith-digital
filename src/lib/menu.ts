@@ -29,6 +29,7 @@ export function itemHref(menu: MegaMenu, item: NavItem) {
   // Location items open their own country page
   if (menu.label === "Locations") return `/locations/${slugify(item.label)}`;
   if (menu.label === "Contact") return item.href;
+  if (item.href === "/company/pricing") return item.href;
   return `/menu/${menuSlug(menu)}/${slugify(item.label)}`;
 }
 

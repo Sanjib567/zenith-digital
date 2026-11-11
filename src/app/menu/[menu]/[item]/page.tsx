@@ -57,6 +57,7 @@ export default async function MenuItemPage({
   }
 
   if (menuParam === "company") {
+    if (itemParam === "our-pricing") redirect("/company/pricing");
     if (itemParam === "about-us") return <AboutPage />;
     if (itemParam === "faq") return <FaqPage />;
     if (itemParam === "contact-us") return <ContactUsPage />;

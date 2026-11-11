@@ -45,6 +45,7 @@ import {
   Terminal,
   Container,
   Boxes,
+  BadgeDollarSign,
 } from "lucide-react";
 
 // ============================================
@@ -434,6 +435,11 @@ export const navMenus: MegaMenu[] = [
       {
         title: "About & Why Us",
         items: [
+          {
+            label: "Our Pricing",
+            href: "/company/pricing",
+            icon: BadgeDollarSign,
+          },
           {
             label: "About Us",
             href: "/company",
