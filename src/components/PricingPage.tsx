@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, MessageCircle, ShieldCheck, Sparkles } from "lucide-react";
 import { siteConfig } from "@/data/site";
@@ -103,11 +106,116 @@ const payLink = (p: Plan) => {
 };
 
 const glance = [
-  { value: "$499", label: "Starting price" },
-  { value: "4", label: "Packages to choose" },
-  { value: "24/7", label: "Tech support" },
-  { value: "100%", label: "Transparent pricing" },
+  { prefix: "$", end: 499, suffix: "", label: "Starting price" },
+  { prefix: "", end: 4, suffix: "", label: "Packages to choose" },
+  { prefix: "", end: 24, suffix: "/7", label: "Tech support" },
+  { prefix: "", end: 100, suffix: "%", label: "Transparent pricing" },
 ];
+
+/* ───────── Count-up number ───────── */
+function Counter({
+  end,
+  prefix,
+  suffix,
+  trigger,
+}: {
+  end: number;
+  prefix: string;
+  suffix: string;
+  trigger: number;
+}) {
+  // Starts at the final value so the server render and no-JS view show real numbers
+  const [val, setVal] = useState(end);
+
+  useEffect(() => {
+    if (trigger === 0) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setVal(end);
+      return;
+    }
+
+    let raf = 0;
+    const duration = 1600;
+    const start = performance.now();
+
+    const tick = (now: number) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out
+      setVal(Math.round(end * eased));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+
+    setVal(0);
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [trigger, end]);
+
+  return (
+    <>
+      {prefix}
+      {val}
+      {suffix}
+    </>
+  );
+}
+
+function GlanceTile({
+  item,
+  run,
+}: {
+  item: (typeof glance)[number];
+  run: number;
+}) {
+  const [hover, setHover] = useState(0);
+
+  return (
+    <div
+      onMouseEnter={() => setHover((h) => h + 1)}
+      className="cursor-default rounded-2xl bg-white px-4 py-7 text-center shadow-lg transition hover:-translate-y-1"
+    >
+      <p className="text-4xl font-extrabold tabular-nums text-[#5b3ee8]">
+        <Counter
+          end={item.end}
+          prefix={item.prefix}
+          suffix={item.suffix}
+          trigger={run + hover}
+        />
+      </p>
+      <p className="mt-2 text-sm font-semibold text-brand-navy">{item.label}</p>
+    </div>
+  );
+}
+
+function GlanceStats() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [run, setRun] = useState(0);
+
+  // Every time the box enters the screen (scrolling down or back up), count again
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) setRun((r) => r + 1);
+      },
+      { threshold: 0.4 }
+    );
+
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className="mt-6 grid grid-cols-2 gap-5">
+      {glance.map((g) => (
+        <GlanceTile key={g.label} item={g} run={run} />
+      ))}
+    </div>
+  );
+}
 
 export default function PricingPage() {
   return (
@@ -164,17 +272,7 @@ export default function PricingPage() {
             <p className="text-sm font-extrabold uppercase tracking-[0.3em] text-white/90">
               Pricing at a glance
             </p>
-            <div className="mt-6 grid grid-cols-2 gap-5">
-              {glance.map((g) => (
-                <div
-                  key={g.label}
-                  className="rounded-2xl bg-white px-4 py-7 text-center shadow-lg transition hover:-translate-y-1"
-                >
-                  <p className="text-4xl font-extrabold text-[#5b3ee8]">{g.value}</p>
-                  <p className="mt-2 text-sm font-semibold text-brand-navy">{g.label}</p>
-                </div>
-              ))}
-            </div>
+            <GlanceStats />
           </div>
         </div>
       </section>
