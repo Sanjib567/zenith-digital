@@ -173,9 +173,9 @@ function GlanceTile({
   return (
     <div
       onMouseEnter={() => setHover((h) => h + 1)}
-      className="cursor-default rounded-2xl bg-white px-4 py-7 text-center shadow-lg transition hover:-translate-y-1"
+      className="cursor-default rounded-2xl bg-white px-2 py-5 text-center shadow-lg transition hover:-translate-y-1 sm:px-4 sm:py-7"
     >
-      <p className="text-4xl font-extrabold tabular-nums text-[#5b3ee8]">
+      <p className="text-3xl font-extrabold tabular-nums text-[#5b3ee8] sm:text-4xl">
         <Counter
           end={item.end}
           prefix={item.prefix}
@@ -183,7 +183,9 @@ function GlanceTile({
           trigger={run + hover}
         />
       </p>
-      <p className="mt-2 text-sm font-semibold text-brand-navy">{item.label}</p>
+      <p className="mt-1.5 text-xs font-semibold text-brand-navy sm:mt-2 sm:text-sm">
+        {item.label}
+      </p>
     </div>
   );
 }
@@ -209,7 +211,7 @@ function GlanceStats() {
   }, []);
 
   return (
-    <div ref={ref} className="mt-6 grid grid-cols-2 gap-5">
+    <div ref={ref} className="mt-5 grid grid-cols-2 gap-3 sm:mt-6 sm:gap-5">
       {glance.map((g) => (
         <GlanceTile key={g.label} item={g} run={run} />
       ))}
@@ -220,39 +222,39 @@ function GlanceStats() {
 export default function PricingPage() {
   return (
     <>
-      {/* ───────── HERO (same look as About Us) ───────── */}
+      {/* ───────── HERO ───────── */}
       <section className="zp-hero relative isolate overflow-hidden text-white">
         <div aria-hidden className="zp-grid absolute inset-0 -z-10" />
         <span aria-hidden className="zp-glow zp-glow-a" />
         <span aria-hidden className="zp-glow zp-glow-b" />
 
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.15fr_0.85fr]">
-          <div>
-            <nav className="text-sm font-bold text-white/90">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-12 sm:px-6 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+          <div className="min-w-0">
+            <nav className="text-xs font-bold text-white/90 sm:text-sm">
               <Link href="/" className="hover:underline">Home</Link>
-              <span className="mx-2 text-white/60">/</span>
+              <span className="mx-1.5 text-white/60 sm:mx-2">/</span>
               <Link href="/menu/company/about-us" className="hover:underline">Company</Link>
-              <span className="mx-2 text-white/60">/</span>
+              <span className="mx-1.5 text-white/60 sm:mx-2">/</span>
               <span>Our Pricing</span>
             </nav>
 
-            <span className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-5 py-3 text-sm font-extrabold uppercase tracking-[0.3em] backdrop-blur">
-              <Sparkles size={16} /> Transparent Pricing
+            <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-[11px] font-extrabold uppercase tracking-[0.2em] backdrop-blur sm:mt-8 sm:px-5 sm:py-3 sm:text-sm sm:tracking-[0.3em]">
+              <Sparkles size={14} /> Transparent Pricing
             </span>
 
-            <h1 className="mt-8 font-[var(--font-heading)] text-5xl font-extrabold leading-[1.1] md:text-7xl">
+            <h1 className="mt-5 font-[var(--font-heading)] text-[2rem] font-extrabold leading-[1.15] sm:mt-8 sm:text-5xl md:text-7xl md:leading-[1.1]">
               Web development packages that fit your budget
             </h1>
 
-            <p className="mt-8 max-w-2xl text-xl font-medium text-white/90">
+            <p className="mt-5 max-w-2xl text-base font-medium text-white/90 sm:mt-8 sm:text-xl">
               All our packages are 100% transparent and come with complete details on exactly what
               you get. Pick a plan and pay securely with PayPal.
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:flex-wrap sm:gap-4">
               <a
                 href="#packages"
-                className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 font-bold text-[#6d28d9] shadow-lg transition hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3 font-bold text-[#6d28d9] shadow-lg transition hover:scale-105"
               >
                 View Packages <ArrowRight size={18} />
               </a>
@@ -260,7 +262,7 @@ export default function PricingPage() {
                 href={`https://wa.me/${siteConfig.whatsapp}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border-2 border-white/80 px-7 py-3 font-bold text-white transition hover:bg-white/15"
+                className="inline-flex items-center justify-center gap-2 rounded-full border-2 border-white/80 px-7 py-3 font-bold text-white transition hover:bg-white/15"
               >
                 <MessageCircle size={18} /> Talk to Us
               </a>
@@ -268,8 +270,8 @@ export default function PricingPage() {
           </div>
 
           {/* Glass card */}
-          <div className="rounded-[2.5rem] border border-white/25 bg-white/10 p-8 shadow-2xl backdrop-blur-md">
-            <p className="text-sm font-extrabold uppercase tracking-[0.3em] text-white/90">
+          <div className="min-w-0 rounded-3xl border border-white/25 bg-white/10 p-5 shadow-2xl backdrop-blur-md sm:rounded-[2.5rem] sm:p-8">
+            <p className="text-xs font-extrabold uppercase tracking-[0.25em] text-white/90 sm:text-sm sm:tracking-[0.3em]">
               Pricing at a glance
             </p>
             <GlanceStats />
@@ -277,23 +279,26 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* ───────── PRICING (new horizontal style) ───────── */}
-      <section id="packages" className="zp-light relative isolate overflow-hidden py-24">
+      {/* ───────── PRICING ───────── */}
+      <section
+        id="packages"
+        className="zp-light relative isolate overflow-hidden pb-28 pt-12 sm:py-24"
+      >
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
           <span className="zp-blob zp-b-blue" />
           <span className="zp-blob zp-b-red" />
           <span className="zp-blob zp-b-pink" />
         </div>
 
-        <div className="mx-auto max-w-6xl px-6">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="text-center">
-            <p className="text-sm font-extrabold uppercase tracking-[0.4em] text-brand-navy">
+            <p className="text-xs font-extrabold uppercase tracking-[0.3em] text-brand-navy sm:text-sm sm:tracking-[0.4em]">
               Our Pricing
             </p>
-            <h2 className="mt-3 bg-gradient-to-r from-[#2563eb] via-[#ff4f6d] to-[#ec4899] bg-clip-text font-[var(--font-heading)] text-4xl font-extrabold text-transparent md:text-5xl">
+            <h2 className="mt-3 bg-gradient-to-r from-[#2563eb] via-[#ff4f6d] to-[#ec4899] bg-clip-text font-[var(--font-heading)] text-3xl font-extrabold leading-tight text-transparent md:text-5xl">
               Web Development Packages
             </h2>
-            <p className="mx-auto mt-6 max-w-4xl text-lg text-brand-navy/75">
+            <p className="mx-auto mt-4 max-w-4xl text-sm text-brand-navy/75 sm:mt-6 sm:text-lg">
               All our packages are 100% transparent and come with complete details on exactly what
               get with each package. To know exactly where you’re going to invest your money, find
               out our below-given packages with an exact quote! We serve you Web Development
@@ -301,7 +306,7 @@ export default function PricingPage() {
             </p>
           </div>
 
-          <div className="mt-16 space-y-8">
+          <div className="mt-10 space-y-7 sm:mt-16 sm:space-y-8">
             {plans.map((p, i) => (
               <div
                 key={p.name}
@@ -309,65 +314,78 @@ export default function PricingPage() {
                   backgroundImage: `linear-gradient(135deg, ${p.from}, ${p.to})`,
                   animationDelay: `${i * 140}ms`,
                 }}
-                className="zp-card relative rounded-[2rem] p-[2px] shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl"
+                className="zp-card relative rounded-3xl p-[2px] shadow-xl transition duration-300 hover:-translate-y-1 hover:shadow-2xl sm:rounded-[2rem]"
               >
                 {p.popular && (
                   <span
                     style={{ backgroundImage: `linear-gradient(135deg, ${p.from}, ${p.to})` }}
-                    className="absolute -top-3 right-8 z-10 rounded-full px-5 py-1 text-xs font-extrabold uppercase tracking-widest text-white shadow-md"
+                    className="absolute -top-3 right-5 z-10 rounded-full px-4 py-1 text-[10px] font-extrabold uppercase tracking-widest text-white shadow-md sm:right-8 sm:px-5 sm:text-xs"
                   >
                     Most Popular
                   </span>
                 )}
 
-                <div className="grid overflow-hidden rounded-[calc(2rem-2px)] bg-white md:grid-cols-[300px_1fr]">
-                  {/* Price panel */}
+                <div className="grid overflow-hidden rounded-[calc(1.5rem-2px)] bg-white sm:rounded-[calc(2rem-2px)] md:grid-cols-[300px_1fr]">
+                  {/* Price panel: compact row on mobile, tall column on desktop */}
                   <div
                     style={{ backgroundImage: `linear-gradient(135deg, ${p.from}, ${p.to})` }}
-                    className="relative flex flex-col justify-center overflow-hidden p-8 text-white"
+                    className="relative flex items-center justify-between gap-4 overflow-hidden px-5 py-5 text-white md:flex-col md:items-start md:justify-center md:p-8"
                   >
-                    <span className="absolute -right-4 -top-6 text-[8rem] font-black leading-none text-white/15">
+                    <span className="pointer-events-none absolute -right-2 -top-3 text-[5rem] font-black leading-none text-white/10 md:-right-4 md:-top-6 md:text-[8rem] md:text-white/15">
                       {p.no}
                     </span>
-                    <p className="relative text-sm font-bold uppercase tracking-[0.3em] text-white/85">
-                      {p.name}
-                    </p>
-                    <p className="relative mt-5 text-sm font-medium text-white/85">Starts from</p>
-                    <p className="relative text-6xl font-extrabold leading-none">
-                      <sup className="mr-1 align-top text-2xl">$</sup>
-                      {p.price}
-                    </p>
-                    <p className="relative mt-3 text-xs font-semibold uppercase tracking-widest text-white/80">
-                      USD · one-time
-                    </p>
+
+                    {/* Left: plan name + label */}
+                    <div className="relative min-w-0">
+                      <p className="text-xs font-bold uppercase tracking-[0.2em] text-white/90 md:text-sm md:tracking-[0.3em]">
+                        {p.name}
+                      </p>
+                      <p className="mt-1.5 text-xs font-medium text-white/85 md:mt-5 md:text-sm">
+                        Starts from
+                      </p>
+                    </div>
+
+                    {/* Right: price + currency note */}
+                   <div className="relative shrink-0 text-right md:text-left">
+  <p className="flex items-baseline justify-end font-extrabold leading-none md:justify-start">
+    <span className="mr-1 text-4xl md:mr-1.5 md:text-5xl">$</span>
+    <span className="text-4xl md:text-6xl">{p.price}</span>
+  </p>
+  <p className="mt-2 text-[10px] font-semibold uppercase tracking-widest text-white/80 md:mt-3 md:text-xs">
+    USD · one-time
+  </p>
+</div>
                   </div>
 
                   {/* Features + button */}
-                  <div className="flex flex-col p-8">
-                    <ul className="grid flex-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+                  <div className="flex min-w-0 flex-col p-5 sm:p-8">
+                    <ul className="grid flex-1 grid-cols-1 gap-x-8 gap-y-2.5 sm:grid-cols-2 sm:gap-y-3">
                       {p.features.map((f) => (
-                        <li key={f} className="flex items-center gap-3 font-medium text-brand-navy/85">
+                        <li
+                          key={f}
+                          className="flex items-start gap-3 text-sm font-medium text-brand-navy/85 sm:items-center sm:text-base"
+                        >
                           <span
                             style={{ backgroundImage: `linear-gradient(135deg, ${p.from}, ${p.to})` }}
-                            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white"
+                            className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white sm:mt-0 sm:h-6 sm:w-6"
                           >
-                            <Check size={14} strokeWidth={3} />
+                            <Check size={12} strokeWidth={3} />
                           </span>
-                          {f}
+                          <span className="min-w-0">{f}</span>
                         </li>
                       ))}
                     </ul>
 
-                    <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-brand-navy/10 pt-6">
-                      <p className="flex items-center gap-2 text-sm text-brand-navy/60">
-                        <ShieldCheck size={18} /> Secure payment via PayPal
+                    <div className="mt-6 flex flex-col items-stretch gap-4 border-t border-brand-navy/10 pt-5 sm:mt-8 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:pt-6">
+                      <p className="flex items-center justify-center gap-2 text-xs text-brand-navy/60 sm:justify-start sm:text-sm">
+                        <ShieldCheck size={16} /> Secure payment via PayPal
                       </p>
                       <a
                         href={payLink(p)}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ backgroundImage: `linear-gradient(135deg, ${p.from}, ${p.to})` }}
-                        className="inline-flex items-center gap-2 rounded-full px-8 py-3 text-lg font-bold text-white shadow-lg transition hover:scale-105"
+                        className="inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3 text-base font-bold text-white shadow-lg transition hover:scale-105 sm:w-auto sm:px-8 sm:text-lg"
                       >
                         Subscribe · ${p.price} <ArrowRight size={18} />
                       </a>
@@ -412,6 +430,12 @@ export default function PricingPage() {
         @keyframes zpFloatA { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(120px,70px) scale(1.15); } }
         @keyframes zpFloatB { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-100px,60px) scale(1.2); } }
         @keyframes zpIn { to { opacity: 1; transform: translateY(0); } }
+
+        /* Smaller background glows on phones */
+        @media (max-width: 640px) {
+          .zp-glow-a, .zp-b-blue { width: 240px; height: 240px; }
+          .zp-glow-b, .zp-b-red, .zp-b-pink { width: 220px; height: 220px; }
+        }
 
         @media (prefers-reduced-motion: reduce) {
           .zp-hero, .zp-light, .zp-glow, .zp-blob, .zp-card { animation: none; opacity: 1; transform: none; }

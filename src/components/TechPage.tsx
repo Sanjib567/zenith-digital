@@ -202,24 +202,32 @@ export default function TechPage({ tech }: { tech: Tech }) {
           />
         </Reveal>
 
-        {/* Compact logo spotlight */}
+        {/* Logo spotlight: logo on top, tagline in its own strip below */}
         <Reveal delay={0.1}>
-          <div
-            className="relative mt-12 flex h-52 w-full items-center justify-center overflow-hidden rounded-[2rem] shadow-xl ring-1 ring-white md:h-60"
-            style={{ background: `linear-gradient(135deg, ${group.tone.from}, ${group.tone.to})` }}
-          >
-            <div className="tp-grid absolute inset-0 opacity-30" />
-            <TechLogo
-              slug={slug}
-              name={tech.name}
-              className="relative h-32 w-32 rounded-3xl shadow-2xl md:h-36 md:w-36"
-              logoClassName="h-3/5 w-3/5"
-            />
-            <div className="absolute bottom-4 left-5 right-5 flex flex-wrap items-end justify-between gap-3">
-              <p className="max-w-lg font-[var(--font-heading)] text-xl font-extrabold text-white drop-shadow-lg md:text-2xl">
+          <div className="mt-10 overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200 md:mt-12 md:rounded-[2rem]">
+            {/* Logo area */}
+            <div
+              className="relative flex h-44 items-center justify-center overflow-hidden md:h-56"
+              style={{ background: `linear-gradient(135deg, ${group.tone.from}, ${group.tone.to})` }}
+            >
+              <div className="tp-grid absolute inset-0 opacity-30" />
+              <TechLogo
+                slug={slug}
+                name={tech.name}
+                className="relative h-28 w-28 rounded-3xl shadow-2xl md:h-36 md:w-36"
+                logoClassName="h-3/5 w-3/5"
+              />
+            </div>
+
+            {/* Tagline strip */}
+            <div className="flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between md:px-7 md:py-5">
+              <p className="font-[var(--font-heading)] text-base font-extrabold leading-snug text-slate-900 md:text-xl">
                 {tech.tagline}
               </p>
-              <span className="rounded-full bg-white/90 px-3 py-1.5 text-xs font-extrabold uppercase tracking-widest text-brand-navy shadow-lg">
+              <span
+                className="w-fit shrink-0 rounded-full px-3.5 py-1.5 text-[11px] font-extrabold uppercase tracking-widest text-white shadow-md md:text-xs"
+                style={{ background: `linear-gradient(135deg, ${group.tone.from}, ${group.tone.to})` }}
+              >
                 {tech.name}
               </span>
             </div>
